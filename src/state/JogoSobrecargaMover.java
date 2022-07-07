@@ -6,21 +6,20 @@
 package state;
 
 import controler.ControladorJogo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Aners
  */
-public class JogoRotacionando extends JogoEstado {
+public class JogoSobrecargaMover extends JogoEstado{
 
     private ControladorJogo c;
 
-    public JogoRotacionando(ControladorJogo c) {
+    public JogoSobrecargaMover(ControladorJogo c) {
         this.c = c;
+        this.c.notificaMensagem("Escolha uma posição para mover o personagem selecionado");
     }
-
+    
     @Override
     public void proxEstado() {
         c.setEstado(new JogoDisponivel(c));
@@ -28,10 +27,10 @@ public class JogoRotacionando extends JogoEstado {
 
     @Override
     public void acao(int x, int y) {
-        c.getPersonagemSelecionado().rotacionar();
-        c.atualizaImagem(c.getPersonagemSelecionado());
-        c.desabilitaBotoes();
-
+        c.setHabilitaBotaoSobrecargaMover(false);
+        c.movePersonagem(x, y);
+        this.c.notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
         proxEstado();
     }
+    
 }

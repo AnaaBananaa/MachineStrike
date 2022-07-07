@@ -5,30 +5,16 @@
  */
 package controler;
 
-import Builder.mapa.BuilderMapa;
 import Observer.ObservadorMapaJogo;
 import Singleton.PersonagensJogo;
 import abstractFactory.FabricaAtaque.Ataque;
 import abstractFactory.FabricaAtaque.FabricaAtaque;
-import abstractFactory.FabricaAtaque.FabricaAtaqueBaixo;
-import abstractFactory.FabricaAtaque.FabricaAtaqueCima;
-import abstractFactory.FabricaAtaque.FabricaAtaqueDireita;
-import abstractFactory.FabricaAtaque.FabricaAtaqueEsquerda;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import model.Personagem;
 import model.mapa.MapaGenerico;
 import state.JogoDisponivel;
 import state.JogoEstado;
-import view.mapaJogo;
 
 /**
  *
@@ -43,8 +29,9 @@ public class ControladorJogo {
     private boolean habilitaBotaoMatar;
     private boolean habilitaBotaoRotacionar;
     private boolean habilitaBotaoMover;
-    private int turno = 0;
-    private boolean isTurnoJogador1;
+    private boolean habilitaBotaoSobrecargaAtacar;
+    private boolean habilitaBotaoSobrecargaMover;
+    private int turnoJogador = 1;
     private boolean carregouTudo;
     private JogoEstado estado;
 
@@ -52,29 +39,15 @@ public class ControladorJogo {
         this.estado = new JogoDisponivel(this);
     }
 
-    public void setEstado(JogoEstado estado) {
-        this.estado = estado;
-    }
-
-    public void anexar(ObservadorMapaJogo obs) {
-        this.obss.add(obs);
-    }
-
-    public List<MapaGenerico> getMapa() {
-        return PersonagensJogo.getInstance().getMapa();
-    }
-
-    public List<Personagem> getPersonagem() {
-        return PersonagensJogo.getInstance().getPersonagens();
-    }
-
     public Personagem getPeca(int x, int y) {
         int xAux = x / 64;
         int yAux = y / 64;
         for (Personagem p : getPersonagem()) {
             if ((p.getX()) == xAux && (p.getY()) == yAux) {
-                setHabilitaBotaoMatar(true);
-                setHabilitaBotaoMover(true);
+                setHabilitaBotaoMatar(p.isPermiteAtacar());
+                setHabilitaBotaoMover(p.isPermiteMover());
+                setHabilitaBotaoSobrecargaAtacar(!p.isPermiteAtacar());
+                setHabilitaBotaoSobrecargaMover(!p.isPermiteMover());
                 setHabilitaBotaoRotacionar(true);
                 atualizarBotoes();
                 return p;
@@ -109,6 +82,59 @@ public class ControladorJogo {
         }
     }
 
+    public void escolhePersonagem(int num) {
+        estado.escolha(num);
+    }
+
+    public void notificaMensagem(String mensagem) {
+        obss.forEach(obs -> {
+            obs.enviaMensagem(mensagem);
+        });
+    }
+
+    public void atacaPersonagem(FabricaAtaque fb, Personagem personagemAtacado) {
+        Ataque ataqueFabrica;
+        int ataque = personagemSelecionado.getForcaAtaque();
+        System.out.println(ataque);
+        ataqueFabrica = fb.atacarPersonagem();
+        System.out.println(personagemAtacado.getVida());
+        personagemAtacado.setVida(ataqueFabrica.ataque(personagemAtacado, ataque));
+        System.out.println(personagemAtacado.getVida());
+        desabilitaBotoes();
+    }
+
+    public void movePersonagem(int x, int y) {
+        if (turnoJogador == personagemSelecionado.getJogador()) {
+            int xAux = x / 64;
+            int yAux = (y / 64) * 8;
+            getPersonagem().stream().filter(p -> (p.equals(personagemSelecionado))).map(p -> {
+                atualizaLabels(personagemSelecionado, xAux, yAux);
+                p.setX(xAux);
+                return p;
+            }).forEachOrdered(p -> {
+                p.setY(y / 64);
+            });
+            desabilitaBotoes();
+        }else{
+            notificaMensagem("O personagem selecionado não faz parte do turno");
+        }
+    }
+
+    public void desabilitaBotoes() {
+        setHabilitaBotaoMatar(false);
+        setHabilitaBotaoMover(false);
+        setHabilitaBotaoRotacionar(false);
+        setHabilitaBotaoSobrecargaAtacar(false);
+        setHabilitaBotaoSobrecargaMover(false);
+        atualizarBotoes();
+    }
+
+    public void atualizaImagem(Personagem p) {
+        obss.forEach(obs -> {
+            obs.atualizaImagem(p);
+        });
+    }
+
     private void adicionaEmTela(Personagem p) {
         obss.forEach(obs -> {
             obs.adicionaEmTela(p);
@@ -138,62 +164,8 @@ public class ControladorJogo {
         });
     }
 
-    public void desenhaMapa(mapaJogo aThis) {
-    }
-
-    public void escolhePersonagem(int num) {
-        estado.escolha(num);
-    }
-
-    public boolean validaTurno() {
-        return turno <= 2;
-    }
-
-    public void notificaMensagem(String mensagem) {
-        obss.forEach(obs -> {
-            obs.enviaMensagem(mensagem);
-        });
-    }
-
-    public void atacaPersonagem(FabricaAtaque fb, Personagem personagemAtacado) {
-        turno = +1;
-        Ataque ataqueFabrica;
-        int ataque = personagemSelecionado.getForcaAtaque();
-        System.out.println(ataque);
-        ataqueFabrica = fb.atacarPersonagem();
-        System.out.println(personagemAtacado.getVida());
-        personagemAtacado.setVida(ataqueFabrica.ataque(personagemAtacado, ataque));
-        System.out.println(personagemAtacado.getVida());
-        desabilitaBotoes();
-    }
-
-    public void movePersonagem(int x, int y) {
-        int xAux = x / 64;
-        int yAux = (y / 64) * 8;
-        if (getPeca(x, y) == null) {
-            getPersonagem().stream().filter(p -> (p.equals(personagemSelecionado))).map(p -> {
-                atualizaLabels(personagemSelecionado, xAux, yAux);
-                p.setX(xAux);
-                return p;
-            }).forEachOrdered(p -> {
-                p.setY(y / 64);
-            });
-            if (turno < 2) {
-                turno++;
-            }
-            desabilitaBotoes();
-        } else {
-            notificaMensagem("Já existe um personagem nesta posição");
-            desabilitaBotoes();
-            personagemSelecionado = null;
-        }
-    }
-
-    public void desabilitaBotoes() {
-        setHabilitaBotaoMatar(false);
-        setHabilitaBotaoMover(false);
-        setHabilitaBotaoRotacionar(false);
-        atualizarBotoes();
+    public void acao(int x, int y) {
+        this.estado.acao(x, y);
     }
 
     public List<Personagem> getPersonagens() {
@@ -244,32 +216,44 @@ public class ControladorJogo {
         this.carregouTudo = carregouTudo;
     }
 
-    public void rotacionar() throws Exception {
-        personagemSelecionado.getFotoPersonagem();
-        String imagem = personagemSelecionado.getCaminhoImagem() + "Direita.png";
-        BufferedImage fotoPersonagem = null;
-        try {
-            fotoPersonagem = ImageIO.read(new File(imagem));
-        } catch (IOException ex) {
-            Logger.getLogger(ControladorJogo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        personagemSelecionado.setFotoPersonagem(fotoPersonagem);
-        Personagem p = personagemSelecionado.clonar();
-        personagemSelecionado.setFrente(p.getEsquerda());
-        personagemSelecionado.setEsquerda(p.getCostas());
-        personagemSelecionado.setCostas(p.getDireita());
-        personagemSelecionado.setDireita(p.getFrente());
-        atualizaImagem(personagemSelecionado);
-        desabilitaBotoes();
+    public boolean isHabilitaBotaoSobrecargaAtacar() {
+        return habilitaBotaoSobrecargaAtacar;
     }
 
-    public void atualizaImagem(Personagem p) {
-        obss.forEach(obs -> {
-            obs.atualizaImagem(p);
-        });
+    public void setHabilitaBotaoSobrecargaAtacar(boolean habilitaBotaoSobrecargaAtacar) {
+        this.habilitaBotaoSobrecargaAtacar = habilitaBotaoSobrecargaAtacar;
     }
 
-    public void acao(int x, int y) {
-        this.estado.acao(x, y);
+    public boolean isHabilitaBotaoSobrecargaMover() {
+        return habilitaBotaoSobrecargaMover;
     }
+
+    public void setHabilitaBotaoSobrecargaMover(boolean habilitaBotaoSobrecargaMover) {
+        this.habilitaBotaoSobrecargaMover = habilitaBotaoSobrecargaMover;
+    }
+
+    public void setEstado(JogoEstado estado) {
+        this.estado = estado;
+    }
+
+    public void anexar(ObservadorMapaJogo obs) {
+        this.obss.add(obs);
+    }
+
+    public List<MapaGenerico> getMapa() {
+        return PersonagensJogo.getInstance().getMapa();
+    }
+
+    public List<Personagem> getPersonagem() {
+        return PersonagensJogo.getInstance().getPersonagens();
+    }
+
+    public int isTurnoJogador() {
+        return turnoJogador;
+    }
+
+    public void setTurnoJogador(int turnoJogador) {
+        this.turnoJogador = turnoJogador;
+    }
+
 }

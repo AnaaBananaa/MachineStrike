@@ -6,7 +6,6 @@
 package view;
 
 import Observer.ObservadorEscolhaMapa;
-import Singleton.PersonagensJogo;
 import controler.ControladorEscolhaMapa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

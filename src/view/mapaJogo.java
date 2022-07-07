@@ -102,6 +102,29 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
                 controladorJogo.acao(0, 0);
             }
         });
+        btnSobAtaque.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controladorJogo.escolhePersonagem(4);
+            }
+        });
+        btnSobMover.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controladorJogo.escolhePersonagem(5);
+
+            }
+        });
+        btnTurno.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (controladorJogo.isTurnoJogador() == 1) {
+                    controladorJogo.setTurnoJogador(2);
+                }else{
+                    controladorJogo.setTurnoJogador(1);
+                }
+            }
+        });
     }
 
     @Override
@@ -190,6 +213,9 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         btnMover = new javax.swing.JButton();
         btnMatar = new javax.swing.JButton();
         btnGirar = new javax.swing.JButton();
+        btnSobMover = new javax.swing.JButton();
+        btnSobAtaque = new javax.swing.JButton();
+        btnTurno = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -235,6 +261,17 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
 
         btnGirar.setText("GIRAR");
 
+        btnSobMover.setText("Sobrecarregar mover");
+
+        btnSobAtaque.setText("Sobrecarregar atacar");
+        btnSobAtaque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSobAtaqueActionPerformed(evt);
+            }
+        });
+
+        btnTurno.setText("FINALIZAR TURNO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -242,18 +279,26 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnMover, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMatar, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnGirar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)))
-                    .addComponent(comboPersonagens, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnMover, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnMatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSobMover, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(40, 40, 40)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnGirar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnSobAtaque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(comboPersonagens, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(btnTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +307,9 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
+                        .addGap(29, 29, 29)
+                        .addComponent(comboPersonagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGirar)
                             .addComponent(btnMatar))
@@ -270,8 +317,12 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnMover)
                             .addComponent(jButton1))
-                        .addGap(18, 18, 18)
-                        .addComponent(comboPersonagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSobMover)
+                            .addComponent(btnSobAtaque))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnTurno)))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
@@ -288,6 +339,10 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSobAtaqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSobAtaqueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSobAtaqueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,6 +388,9 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
     private javax.swing.JButton btnGirar;
     private javax.swing.JButton btnMatar;
     private javax.swing.JButton btnMover;
+    private javax.swing.JButton btnSobAtaque;
+    private javax.swing.JButton btnSobMover;
+    private javax.swing.JButton btnTurno;
     private javax.swing.JComboBox<String> comboPersonagens;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
@@ -344,6 +402,8 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         btnMatar.setEnabled(controladorJogo.getHabilitaBotaoMatar());
         btnGirar.setEnabled(controladorJogo.getHabilitaBotaoRotacionar());
         btnMover.setEnabled(controladorJogo.getHabilitaBotaoMover());
+        btnSobAtaque.setEnabled(controladorJogo.isHabilitaBotaoSobrecargaAtacar());
+        btnSobMover.setEnabled(controladorJogo.isHabilitaBotaoSobrecargaMover());
     }
 
     @Override

@@ -11,8 +11,8 @@ package model;
  */
 public class Personagem1 extends Personagem{
 
-    public Personagem1() {
-        super(1, 2, 2, 4, 1, -1, 0, 2, 1, "Personagem 1", 100, 100);
+    public Personagem1(int jogador) {
+        super(jogador, 1, 2, 2, 4, 1, -1, 0, 2, 1, "Personagem 1", 100, 100);
     }
     
     @Override

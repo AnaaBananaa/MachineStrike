@@ -5,8 +5,6 @@
  */
 package state;
 
-import model.Personagem;
-
 /**
  *
  * @author Aners

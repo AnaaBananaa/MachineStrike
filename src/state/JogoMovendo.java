@@ -6,6 +6,7 @@
 package state;
 
 import controler.ControladorJogo;
+import model.Personagem;
 
 /**
  *
@@ -14,7 +15,7 @@ import controler.ControladorJogo;
 public class JogoMovendo extends JogoEstado {
 
     private ControladorJogo c;
-    
+
     JogoMovendo(ControladorJogo c) {
         this.c = c;
         this.c.notificaMensagem("Escolha uma posição para mover o personagem selecionado");
@@ -27,10 +28,16 @@ public class JogoMovendo extends JogoEstado {
 
     @Override
     public void acao(int x, int y) {
-        c.movePersonagem(x, y);
+        if (c.getPeca(x, y) == null) {
+            c.getPersonagemSelecionado().setPermiteMover(false);
+            c.movePersonagem(x, y);
+        } else {
+            c.notificaMensagem("Já existe um personagem nesta posição");
+            c.desabilitaBotoes();
+            c.setPersonagemSelecionado(null);
+        }
+        c.setHabilitaBotaoSobrecargaMover(true);
         proxEstado();
     }
-    
-    
-    
+
 }

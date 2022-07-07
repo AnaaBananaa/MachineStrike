@@ -37,7 +37,7 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    uc.salvarPeronsagem(new Personagem1());
+                    uc.salvarPeronsagem(new Personagem1(uc.getJogador()));
                 } catch (Exception ex) {
                     Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -48,7 +48,7 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    uc.salvarPeronsagem(new Personagem2());
+                    uc.salvarPeronsagem(new Personagem2(uc.getJogador()));
                 } catch (Exception ex) {
                     Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
                 }

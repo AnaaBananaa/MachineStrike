@@ -6,7 +6,9 @@
 package model;
 
 import java.awt.Image;
-
+import state.Personagem.PersonagemEstado;
+import state.Personagem.PersonagemRotacionaCostas;
+import state.Personagem.PersonagemRotacionaFrente;
 /**
  *
  * @author Aners
@@ -33,11 +35,15 @@ public abstract class Personagem implements Cloneable {
     private int custoVP;
     private String nome;
     private Image fotoPersonagem;
+    private PersonagemEstado estado;
+    private boolean permiteMover = true;
+    private boolean permiteAtacar = true;
 
     public Personagem() {
     }
 
-    public Personagem(int alcance, int movimentacao, int forcaAtaque, int vida, int frente, int costas, int esquerda, int direita, int custoVP, String nome, int x, int y) {
+    public Personagem(int jogador, int alcance, int movimentacao, int forcaAtaque, int vida, int frente, int costas, int esquerda, int direita, int custoVP, String nome, int x, int y) {
+        this.jogador = jogador;
         this.alcance = alcance;
         this.movimentacao = movimentacao;
         this.forcaAtaque = forcaAtaque;
@@ -50,9 +56,19 @@ public abstract class Personagem implements Cloneable {
         this.nome = nome;
         this.x = x;
         this.y = y;
+        if (this.jogador == 1) {
+            this.estado = new PersonagemRotacionaCostas(this);
+        }else{
+            this.estado = new PersonagemRotacionaFrente(this);
+        }
+
     }
 
     public abstract String getCaminhoImagem();
+
+    public void rotacionar() {
+        this.estado.rotacionar();
+    }
 
     public int getX() {
         return x;
@@ -168,6 +184,30 @@ public abstract class Personagem implements Cloneable {
 
     public Personagem clonar() throws Exception {
         return (Personagem) super.clone();
+    }
+
+    public PersonagemEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(PersonagemEstado estado) {
+        this.estado = estado;
+    }
+
+    public boolean isPermiteMover() {
+        return permiteMover;
+    }
+
+    public void setPermiteMover(boolean permiteMover) {
+        this.permiteMover = permiteMover;
+    }
+
+    public boolean isPermiteAtacar() {
+        return permiteAtacar;
+    }
+
+    public void setPermiteAtacar(boolean permiteAtacar) {
+        this.permiteAtacar = permiteAtacar;
     }
 
     @Override

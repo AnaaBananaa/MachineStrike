@@ -13,25 +13,33 @@ import model.Personagem;
  * @author Aners
  */
 public class JogoDisponivel extends JogoEstado {
-    
+
     private ControladorJogo c;
     private int escolha;
-    
+    private int jogador;
+
     public JogoDisponivel(ControladorJogo c) {
         this.c = c;
     }
-    
+
     @Override
     public String toString() {
         return "Disponivel";
     }
-    
+
     @Override
     public void proxEstado() {
         switch (escolha) {
-            case 1 -> c.setEstado(new JogoMovendo(c));
-            case 2 -> c.setEstado(new JogoAtacando(c));
-            case 3 -> c.setEstado(new JogoRotacionando(c));
+            case 1 ->
+                c.setEstado(new JogoMovendo(c));
+            case 2 ->
+                c.setEstado(new JogoAtacando(c));
+            case 3 ->
+                c.setEstado(new JogoRotacionando(c));
+            case 4 ->
+                c.setEstado(new JogoSobrecargaAtacar(c));
+            case 5 ->
+                c.setEstado(new JogoSobrecargaMover(c));
             default -> {
             }
         }
@@ -39,7 +47,6 @@ public class JogoDisponivel extends JogoEstado {
 
     @Override
     public void acao(int x, int y) {
-        System.out.println("state.JogoDisponivel.acao()");
     }
 
     @Override
@@ -47,5 +54,5 @@ public class JogoDisponivel extends JogoEstado {
         this.escolha = e;
         proxEstado();
     }
-    
+
 }

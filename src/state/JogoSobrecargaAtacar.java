@@ -16,17 +16,12 @@ import model.Personagem;
  *
  * @author Aners
  */
-public class JogoAtacando extends JogoEstado {
+public class JogoSobrecargaAtacar extends JogoEstado {
 
     private ControladorJogo c;
 
-    public JogoAtacando(ControladorJogo c) {
+    JogoSobrecargaAtacar(ControladorJogo c) {
         this.c = c;
-        if (c.getPersonagemSelecionado().getJogador() == 1) {
-            c.notificaMensagem("O alcance de ataque do personagem é " + c.getPersonagemSelecionado().getAlcance() + " Escolha um personagem do jogador " + 2);
-        } else {
-            c.notificaMensagem("O alcance de ataque do personagem é " + c.getPersonagemSelecionado().getAlcance() + " Escolha um personagem do jogador " + 1);
-        }
     }
 
     @Override
@@ -67,8 +62,9 @@ public class JogoAtacando extends JogoEstado {
         } else {
             c.notificaMensagem("Jogador a ser atacado não foi selecionado");
         }
-        c.setHabilitaBotaoSobrecargaAtacar(true);
-        c.getPersonagemSelecionado().setPermiteAtacar(false);
+        pSelect.setVida(pSelect.getVida() - 2);
+        c.setHabilitaBotaoSobrecargaAtacar(false);
+        this.c.notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
         proxEstado();
     }
 

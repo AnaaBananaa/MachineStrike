@@ -90,7 +90,6 @@ public class ControladorEscolhaPersonagem {
 
     public void inverter() throws Exception {
         BufferedImage img = null;
-        p.setJogador(jogador);
         if (jogador == 1) {
             if (aux1 < 10) {
                 aux1 += 1;
@@ -129,4 +128,12 @@ public class ControladorEscolhaPersonagem {
         }
     }
 
+    public int getJogador() {
+        return jogador;
+    }
+
+    public void setJogador(int jogador) {
+        this.jogador = jogador;
+    }
+    
 }
