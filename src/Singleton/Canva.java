@@ -7,6 +7,8 @@ package Singleton;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -16,20 +18,20 @@ import javax.swing.JPanel;
 public class Canva extends JPanel {
 
     public Canva() {
-        this.setBackground(new Color(0,0,0,0));
+        this.setBackground(new Color(0, 0, 0, 0));
     }
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g); 
+        super.paint(g);
     }
-    
-    public void desenha(){
+
+    public void desenha() {
         Graphics g = this.getGraphics();
         g.drawOval(0, 0, 100, 100);
 
     }
-    
+
     public void desenhaLinhas(int i) {
         Graphics g = this.getGraphics();
         int aux = 0;
@@ -58,5 +60,16 @@ public class Canva extends JPanel {
             }
         }
     }
-    
+
+    public void desenhaLimites(List<JLabel> label) {
+        Graphics g = this.getGraphics();
+        for (JLabel l : label) {
+            g.drawRect(l.getX(), l.getY(), 64, 64);
+        }
+    }
+
+    public void limpar() {
+        repaint();
+    }
+
 }

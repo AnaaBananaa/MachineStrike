@@ -5,8 +5,6 @@
  */
 package Singleton;
 
-import Builder.mapa.BuilderMapa;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.JPanel;
@@ -26,16 +24,9 @@ public class Paint extends JPanel {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 g.drawImage(mapaJogo.get(aux).getImg(),x * 64, y * 64, 64, 64, this);
-                aux = +1;
+                aux += 1;
             }
-            aux = +1;
-
         }
-    }
-
-    public void desenharMapa(int escolha) {
-        Graphics g = this.getGraphics();
-
     }
 
     public void desenhaLinhas(int i) {
@@ -67,26 +58,4 @@ public class Paint extends JPanel {
             }
         }
     }
-
-    public void desenharMapaEscolhido(List<String> mapa) {
-        Graphics g = this.getGraphics();
-
-        int y = 0;
-        int x = 0;
-        int aux = 0;
-        for (String map : mapa) {
-            aux += 1;
-            if (aux % 8 == 0) {
-                x += 64;
-            } else {
-                y += 64;
-                x = 0;
-            }
-            Color cor = Color.decode(map);
-            g.setColor(cor);
-            g.fill3DRect(x, y, 64, 64, true);
-
-        }
-    }
-
 }

@@ -18,10 +18,8 @@ public class GeradorMapa {
     }
 
     public void construir() {
+        mapa.constroiMapa();
         mapa.reset();
-        mapa.construirPontosAtaque(0);
-        mapa.construirPontosDeVida(0);
-        mapa.imagemMapa(null);
     }
 
 }

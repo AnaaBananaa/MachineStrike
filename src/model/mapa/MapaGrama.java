@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Builder.mapa;
+package model.mapa;
 
-import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -16,18 +15,16 @@ import javax.imageio.ImageIO;
  *
  * @author Aners
  */
-public class MapaGrama extends BuilderMapa{
+public class MapaGrama extends MapaGenerico{
 
-    @Override
-    public void imagemMapa(Image img) {
+    public MapaGrama() {
+        super.setDanoAtaque(0);
+        super.setDanoVida(0);
         try {
-            img = ImageIO.read(new File("src\\images\\grama.png"));
+            super.setImg(ImageIO.read(new File("src\\images\\grama.png")));
         } catch (IOException ex) {
-            Logger.getLogger(MapaGrama.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao ler imagem");
         }
-        super.imagemMapa(img);
-        
     }
-    
     
 }

@@ -104,20 +104,22 @@ public class ControladorJogo {
     }
 
     public void movePersonagem(int x, int y) {
-        if (turnoJogador == personagemSelecionado.getJogador()) {
-            int xAux = x / 64;
-            int yAux = (y / 64) * 8;
-            getPersonagem().stream().filter(p -> (p.equals(personagemSelecionado))).map(p -> {
-                atualizaLabels(personagemSelecionado, xAux, yAux);
-                p.setX(xAux);
-                return p;
-            }).forEachOrdered(p -> {
-                p.setY(y / 64);
-            });
-            desabilitaBotoes();
-        }else{
-            notificaMensagem("O personagem selecionado não faz parte do turno");
-        }
+        getPersonagem().stream().filter(p -> (p.equals(personagemSelecionado))).map(p -> {
+            atualizaLabels(personagemSelecionado, x, y * 8);
+            p.setX(x);
+            return p;
+        }).forEachOrdered(p -> {
+            p.setY(y);
+        });
+        desabilitaBotoes();
+
+        limpaTela();
+    }
+
+    public void limpaTela() {
+        obss.forEach(obs -> {
+            obs.limpaTela();
+        });
     }
 
     public void desabilitaBotoes() {
@@ -254,6 +256,40 @@ public class ControladorJogo {
 
     public void setTurnoJogador(int turnoJogador) {
         this.turnoJogador = turnoJogador;
+    }
+
+    public int verificaLimites(int y, int x, int posicao) {
+        int pX = personagemSelecionado.getX() * 64;
+        int pY = personagemSelecionado.getY() * 64;
+        int pMovimento = personagemSelecionado.getMovimentacao() * 64;
+        if (y == pY) {
+            if ((x >= pX && x <= pX + pMovimento) || (x <= pX && x >= pX - pMovimento)) {
+                return posicao;
+            }
+        }
+        if (x == pX) {
+            if ((y >= pY && y <= pY + pMovimento) || (y <= pY && y >= pY - pMovimento)) {
+                return posicao;
+            }
+        }
+        return -1;
+    }
+    
+    public int verificaSprint(int y, int x, int posicao){
+        int pX = personagemSelecionado.getX() + 1 * 64;
+        int pY = personagemSelecionado.getY() + 1 * 64;
+        int pMovimento = personagemSelecionado.getMovimentacao() * 64;
+        if (y == pY) {
+            if ((x == pX + pMovimento) || (x == pX - pMovimento)) {
+                return posicao;
+            }
+        }
+        if (x == pX) {
+            if ((y == pY + pMovimento) || (y == pY - pMovimento)) {
+                return posicao;
+            }
+        }
+        return -1;
     }
 
 }

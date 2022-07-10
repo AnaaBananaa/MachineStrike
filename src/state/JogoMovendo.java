@@ -29,8 +29,18 @@ public class JogoMovendo extends JogoEstado {
     @Override
     public void acao(int x, int y) {
         if (c.getPeca(x, y) == null) {
-            c.getPersonagemSelecionado().setPermiteMover(false);
-            c.movePersonagem(x, y);
+            if (c.isTurnoJogador() == c.getPersonagemSelecionado().getJogador()) {
+                int xAux = x / 64;
+                int yAux = y / 64;
+                if (c.verificaLimites(yAux * 64, xAux * 64, 3) == 3) {
+                    c.getPersonagemSelecionado().setPermiteMover(false);
+                    c.movePersonagem(xAux, yAux);
+                } else {
+                    c.notificaMensagem("O campo escolhido está fora dos limites do personagem");
+                }
+            } else {
+                c.notificaMensagem("O personagem selecionado não faz parte do turno");
+            }
         } else {
             c.notificaMensagem("Já existe um personagem nesta posição");
             c.desabilitaBotoes();

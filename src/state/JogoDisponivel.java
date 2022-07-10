@@ -6,7 +6,6 @@
 package state;
 
 import controler.ControladorJogo;
-import model.Personagem;
 
 /**
  *

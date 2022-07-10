@@ -5,32 +5,29 @@
  */
 package Builder.mapa;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import model.mapa.MapaGenerico;
+import model.mapa.MapaGrama;
 
 /**
  *
  * @author Aners
  */
-public abstract class BuilderMapa {
+public class Mapa1 extends BuilderMapa {
 
-    private List<MapaGenerico> mapa;
+    private  List<MapaGenerico> mapa = new ArrayList<>();
     
-    public void constroiMapa(){
-    }
-
-    public void reset() {
-        this.mapa = new ArrayList<>();
-    }
-
+    @Override
     public List<MapaGenerico> getMapa() {
         return mapa;
     }
-
-    public void addMapa(List<MapaGenerico> mapa) {
-        this.mapa = mapa;
-    }
     
+    @Override
+    public void constroiMapa() {
+        for (int i = 0; i < 64; i ++) {
+            mapa.add(new MapaGrama());
+        }
+    }
+
 }

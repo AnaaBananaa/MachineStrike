@@ -74,9 +74,9 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             public void itemStateChanged(ItemEvent e) {
                 pAux = (Personagem) e.getItem();
                 if (pAux.getJogador() == 1) {
-                    ((Canva) jPanel2).desenhaLinhas(1);
+//                    ((Canva) jPanel2).desenhaLinhas(1);
                 } else {
-                    ((Canva) jPanel2).desenhaLinhas(2);
+//                    ((Canva) jPanel2).desenhaLinhas(2);
                 }
             }
         });
@@ -92,6 +92,7 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             public void actionPerformed(ActionEvent e) {
                 controladorJogo.escolhePersonagem(1);
                 controladorJogo.setPersonagemSelecionado(pAux);
+                selecionaLimites();
             }
         });
         btnGirar.addActionListener(new ActionListener() {
@@ -120,11 +121,32 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             public void actionPerformed(ActionEvent e) {
                 if (controladorJogo.isTurnoJogador() == 1) {
                     controladorJogo.setTurnoJogador(2);
-                }else{
+                } else {
                     controladorJogo.setTurnoJogador(1);
                 }
             }
         });
+    }
+
+    @Override
+    public void selecionaLimites() {
+        List<JLabel> lSprint = new ArrayList<>();
+        List<JLabel> l = new ArrayList<>();
+        for (int i = 0; i < labels.size(); i++) {
+            if (controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
+                l.add(labels.get(controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i)));
+            }
+            if(controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i) != -1){
+                lSprint.add(labels.get(controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i)));
+            }
+        }
+//        ((Canva) jPanel2).desenhaSprint(lSprint);
+        ((Canva) jPanel2).desenhaLimites(l);
+    }
+    
+    @Override
+    public void limpaTela(){
+        ((Canva) jPanel2).limpar();
     }
 
     @Override
