@@ -5,19 +5,19 @@
  */
 package adapter;
 
-import java.io.File;
+import java.awt.Font;
 
 /**
  *
  * @author Aners
  */
-public class ImagemBufferedConvert extends ImagemBuffered implements Imagem{
+public class AdapterDefault implements AdapterBackground{
+    
+    private LayoutDefault adaptado;
 
     @Override
-    public void converterImagem(File file) throws Exception{
-        super.converter(file);
+    public void salvarLayout(String cor, Font font) {
+        adaptado.salvaTema(cor, font);
     }
-
-
     
 }

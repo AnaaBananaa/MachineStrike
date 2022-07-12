@@ -20,5 +20,6 @@ public interface ObservadorMapaJogo {
     void atualizaLabel(Personagem p, int x, int y);
     void atualizaImagem(Personagem p);
     void selecionaLimites();
+    void selecionaLimitesAtaque();
     void limpaTela();
 }

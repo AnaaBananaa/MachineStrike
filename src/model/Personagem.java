@@ -5,10 +5,13 @@
  */
 package model;
 
+import abstractFactory.FabricaAtaque.FabricaAtaque;
 import java.awt.Image;
 import state.Personagem.PersonagemEstado;
 import state.Personagem.PersonagemRotacionaCostas;
 import state.Personagem.PersonagemRotacionaFrente;
+import visitor.VisitorPersonagem;
+
 /**
  *
  * @author Aners
@@ -38,6 +41,7 @@ public abstract class Personagem implements Cloneable {
     private PersonagemEstado estado;
     private boolean permiteMover = true;
     private boolean permiteAtacar = true;
+    private FabricaAtaque fabrica;
 
     public Personagem() {
     }
@@ -58,12 +62,12 @@ public abstract class Personagem implements Cloneable {
         this.y = y;
         if (this.jogador == 1) {
             this.estado = new PersonagemRotacionaCostas(this);
-        }else{
+        } else {
             this.estado = new PersonagemRotacionaFrente(this);
         }
 
     }
-
+    public abstract Personagem ataqueDaClasse(Personagem pAtact, int posicao);
     public abstract String getCaminhoImagem();
 
     public void rotacionar() {
@@ -213,6 +217,18 @@ public abstract class Personagem implements Cloneable {
     @Override
     public String toString() {
         return nome + "Player " + jogador + "\n";
+    }
+
+    public FabricaAtaque getFabrica() {
+        return fabrica;
+    }
+
+    public void setFabrica(FabricaAtaque fabrica) {
+        this.fabrica = fabrica;
+    }
+
+    public void accept(VisitorPersonagem visitor) {
+        visitor.visit(this);
     }
 
 }

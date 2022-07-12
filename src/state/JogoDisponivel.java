@@ -28,20 +28,27 @@ public class JogoDisponivel extends JogoEstado {
 
     @Override
     public void proxEstado() {
-        switch (escolha) {
-            case 1 ->
-                c.setEstado(new JogoMovendo(c));
-            case 2 ->
-                c.setEstado(new JogoAtacando(c));
-            case 3 ->
-                c.setEstado(new JogoRotacionando(c));
-            case 4 ->
-                c.setEstado(new JogoSobrecargaAtacar(c));
-            case 5 ->
-                c.setEstado(new JogoSobrecargaMover(c));
-            default -> {
+        if (c.isTurnoJogador() == c.getPersonagemSelecionado().getJogador()) {
+            switch (escolha) {
+                case 1 ->
+                    c.setEstado(new JogoMovendo(c));
+                case 2 ->
+                    c.setEstado(new JogoAtacando(c));
+                case 3 ->
+                    c.setEstado(new JogoRotacionando(c));
+                case 4 ->
+                    c.setEstado(new JogoSobrecargaAtacar(c));
+                case 5 ->
+                    c.setEstado(new JogoSobrecargaMover(c));
+                default -> {
+                }
             }
+        } else {
+            c.notificaMensagem("O personagem selecionado não faz parte do turno");
+            c.desabilitaBotoes();
+            c.setPersonagemSelecionado(null);
         }
+
     }
 
     @Override

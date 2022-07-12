@@ -63,8 +63,18 @@ public class Canva extends JPanel {
 
     public void desenhaLimites(List<JLabel> label) {
         Graphics g = this.getGraphics();
+        g.setColor(Color.WHITE);
         for (JLabel l : label) {
-            g.drawRect(l.getX(), l.getY(), 64, 64);
+            g.drawOval(l.getX() + 5, l.getY() + 5, 54, 54);
+        }
+    }
+
+    public void desenhaSprint(List<JLabel> label) {
+        Graphics g = this.getGraphics();
+        Color white = new Color(255, 255, 255, 100);
+        g.setColor(white);
+        for (JLabel l : label) {
+            g.fillOval(l.getX() + 10, l.getY() + 10, 44, 44);
         }
     }
 

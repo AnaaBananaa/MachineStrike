@@ -6,7 +6,6 @@
 package state;
 
 import controler.ControladorJogo;
-import model.Personagem;
 
 /**
  *
@@ -29,23 +28,27 @@ public class JogoMovendo extends JogoEstado {
     @Override
     public void acao(int x, int y) {
         if (c.getPeca(x, y) == null) {
-            if (c.isTurnoJogador() == c.getPersonagemSelecionado().getJogador()) {
-                int xAux = x / 64;
-                int yAux = y / 64;
-                if (c.verificaLimites(yAux * 64, xAux * 64, 3) == 3) {
-                    c.getPersonagemSelecionado().setPermiteMover(false);
-                    c.movePersonagem(xAux, yAux);
+            int xAux = x / 64;
+            int yAux = y / 64;
+            if (c.verificaLimites(yAux * 64, xAux * 64, 3) == 3) {
+                c.getPersonagemSelecionado().setPermiteMover(false);
+                c.movePersonagem(c.getPersonagemSelecionado(), xAux, yAux);
+            } else {
+                if (c.verificaSprint(yAux * 64, xAux * 64, 3) == 3) {
+                    c.setHabilitaBotaoMatar(false);
+                    c.movePersonagem(c.getPersonagemSelecionado(), xAux, yAux);
                 } else {
                     c.notificaMensagem("O campo escolhido está fora dos limites do personagem");
+                    c.desabilitaBotoes();
+                    c.setPersonagemSelecionado(null);
                 }
-            } else {
-                c.notificaMensagem("O personagem selecionado não faz parte do turno");
             }
         } else {
             c.notificaMensagem("Já existe um personagem nesta posição");
             c.desabilitaBotoes();
             c.setPersonagemSelecionado(null);
         }
+        c.limpaTela();
         c.setHabilitaBotaoSobrecargaMover(true);
         proxEstado();
     }

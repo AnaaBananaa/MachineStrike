@@ -6,7 +6,6 @@
 package model.mapa;
 
 import java.awt.Image;
-import visitor.VisitaMapa;
 
 /**
  *
@@ -43,10 +42,6 @@ public class MapaGenerico {
 
     public void setImg(Image img) {
         this.img = img;
-    }
-
-    public void accept(VisitaMapa visitor) throws Exception {
-        visitor.visit(this);
     }
 
 }

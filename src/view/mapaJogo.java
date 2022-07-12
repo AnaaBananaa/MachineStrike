@@ -83,23 +83,24 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         btnMatar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorJogo.escolhePersonagem(2);
                 controladorJogo.setPersonagemSelecionado(pAux);
+                controladorJogo.escolhePersonagem(2);
+                selecionaLimitesAtaque();
             }
         });
         btnMover.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorJogo.escolhePersonagem(1);
                 controladorJogo.setPersonagemSelecionado(pAux);
+                controladorJogo.escolhePersonagem(1);
                 selecionaLimites();
             }
         });
         btnGirar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controladorJogo.escolhePersonagem(3);
                 controladorJogo.setPersonagemSelecionado(pAux);
+                controladorJogo.escolhePersonagem(3);
                 controladorJogo.acao(0, 0);
             }
         });
@@ -107,13 +108,14 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             @Override
             public void actionPerformed(ActionEvent e) {
                 controladorJogo.escolhePersonagem(4);
+                selecionaLimitesAtaque();
             }
         });
         btnSobMover.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controladorJogo.escolhePersonagem(5);
-
+                selecionaLimites();
             }
         });
         btnTurno.addActionListener(new ActionListener() {
@@ -130,22 +132,37 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
 
     @Override
     public void selecionaLimites() {
-        List<JLabel> lSprint = new ArrayList<>();
-        List<JLabel> l = new ArrayList<>();
-        for (int i = 0; i < labels.size(); i++) {
-            if (controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
-                l.add(labels.get(controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i)));
+        if (controladorJogo.getPersonagemSelecionado() != null) {
+            List<JLabel> lSprint = new ArrayList<>();
+            List<JLabel> l = new ArrayList<>();
+            for (int i = 0; i < labels.size(); i++) {
+                if (controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
+                    l.add(labels.get(controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i)));
+                }
+                if (controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
+                    lSprint.add(labels.get(controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i)));
+                }
             }
-            if(controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i) != -1){
-                lSprint.add(labels.get(controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i)));
-            }
+            ((Canva) jPanel2).desenhaSprint(lSprint);
+            ((Canva) jPanel2).desenhaLimites(l);
         }
-//        ((Canva) jPanel2).desenhaSprint(lSprint);
-        ((Canva) jPanel2).desenhaLimites(l);
     }
     
     @Override
-    public void limpaTela(){
+    public void selecionaLimitesAtaque() {
+        if (controladorJogo.getPersonagemSelecionado() != null) {
+            List<JLabel> l = new ArrayList<>();
+            for (int i = 0; i < labels.size(); i++) {
+                if (controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
+                    l.add(labels.get(controladorJogo.verificaLimitesAtaque(labels.get(i).getY(), labels.get(i).getX(), i)));
+                }
+            }
+            ((Canva) jPanel2).desenhaLimites(l);
+        }
+    }
+
+    @Override
+    public void limpaTela() {
         ((Canva) jPanel2).limpar();
     }
 

@@ -9,10 +9,10 @@ package model;
  *
  * @author Aners
  */
-public class Personagem1 extends Personagem{
+public class Personagem1 extends PersonagemCorpoCorpo{
 
     public Personagem1(int jogador) {
-        super(jogador, 1, 2, 2, 4, 1, -1, 0, 2, 1, "Personagem 1", 100, 100);
+        super(jogador, 1, 2, 2, 4, 1, -1, 0, 0, 1, "Burrower", 100, 100);
     }
     
     @Override

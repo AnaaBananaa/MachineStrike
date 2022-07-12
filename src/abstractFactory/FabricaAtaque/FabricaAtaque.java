@@ -5,8 +5,6 @@
  */
 package abstractFactory.FabricaAtaque;
 
-import model.Personagem;
-
 /**
  *
  * @author Aners

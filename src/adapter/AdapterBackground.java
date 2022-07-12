@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package visitor;
+package adapter;
 
-import model.mapa.MapaGenerico;
+import java.awt.Font;
 
 /**
  *
  * @author Aners
  */
-public interface VisitaMapa {
+public interface AdapterBackground {
     
-    	void visit(MapaGenerico mapa) throws Exception;
+    void salvarLayout(String cor, Font font);
     
 }

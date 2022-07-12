@@ -5,12 +5,12 @@
  */
 package Singleton;
 
-import Builder.mapa.BuilderMapa;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import model.Personagem;
 import model.mapa.MapaGenerico;
-import visitor.VisitaMapa;
+import visitor.VisitorPersonagem;
 
 /**
  *
@@ -20,8 +20,10 @@ public class PersonagensJogo {
 
     private static PersonagensJogo instance;
     private List<Personagem> personagens = new ArrayList<>();
+    private List<Personagem> mortos = new ArrayList<>();
     private List<MapaGenerico> mapa = new ArrayList<>();
-    private BuilderMapa mapaEscolhido;
+    private String corFundo;
+    private Font fonte;
 
     public synchronized static PersonagensJogo getInstance() {
         if (instance == null) {
@@ -47,12 +49,6 @@ public class PersonagensJogo {
         this.personagens = personagens;
     }
 
-    public void accept(VisitaMapa visitor) throws Exception {
-        for (MapaGenerico item : mapa) {
-            item.accept(visitor);
-        }
-    }
-
     public List<MapaGenerico> getMapa() {
         return mapa;
     }
@@ -61,12 +57,37 @@ public class PersonagensJogo {
         this.mapa = mapa;
     }
 
-    public BuilderMapa getMapaEscolhido() {
-        return mapaEscolhido;
+    public String getCorFundo() {
+        return corFundo;
     }
 
-    public void setMapaEscolhido(BuilderMapa mapaEscolhido) {
-        this.mapaEscolhido = mapaEscolhido;
+    public void setCorFundo(String corFundo) {
+        this.corFundo = corFundo;
+    }
+
+    public Font getFonte() {
+        return fonte;
+    }
+
+    public void setFonte(Font fonte) {
+        this.fonte = fonte;
+    }
+
+    public void accept(VisitorPersonagem visitor) {
+        for (Personagem item : getMortos()) {
+            item.accept(visitor);
+        }
+    }
+    public List<Personagem> getMortos() {
+        return mortos;
+    }
+
+    public void setMortos(List<Personagem> mortos) {
+        this.mortos = mortos;
+    }
+    
+    public void addMortos(Personagem p) {
+        this.mortos.add(p);
     }
 
 }

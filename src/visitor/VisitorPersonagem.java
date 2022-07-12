@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package adapter;
+package visitor;
 
-import java.io.File;
+import model.Personagem;
 
 /**
  *
  * @author Aners
  */
-public interface Imagem {
+public interface VisitorPersonagem {
     
-    void converterImagem(File file) throws Exception;
+    void visit(Personagem p);
     
 }
