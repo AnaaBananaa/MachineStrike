@@ -23,6 +23,7 @@ import state.JogoAtacando;
 import state.JogoDisponivel;
 import state.JogoEstado;
 import visitor.CalculaGanhador;
+import visitor.CalculaPersonagens;
 
 /**
  *
@@ -43,9 +44,14 @@ public class ControladorJogo {
     private boolean ganhou;
     private boolean carregouTudo;
     private JogoEstado estado;
+    private boolean moveu;
+    private boolean atacou;
+    private int jogadas;
 
     public ControladorJogo() {
         this.estado = new JogoDisponivel(this);
+        moveu = true;
+        atacou = true;
     }
 
     public Personagem getPeca(int x, int y) {
@@ -54,10 +60,10 @@ public class ControladorJogo {
             int yAux = y / 64;
             for (Personagem p : getPersonagem()) {
                 if ((p.getX()) == xAux && (p.getY()) == yAux) {
-                    setHabilitaBotaoMatar(p.isPermiteAtacar());
-                    setHabilitaBotaoMover(p.isPermiteMover());
-                    setHabilitaBotaoSobrecargaAtacar(!p.isPermiteAtacar());
-                    setHabilitaBotaoSobrecargaMover(!p.isPermiteMover());
+                    setHabilitaBotaoMatar(p.isPermiteAtacar() && atacou);
+                    setHabilitaBotaoMover(p.isPermiteMover() && moveu);
+                    setHabilitaBotaoSobrecargaAtacar(jogadas == 2);
+                    setHabilitaBotaoSobrecargaMover(jogadas == 2);
                     setHabilitaBotaoRotacionar(true);
                     atualizarBotoes();
                     return p;
@@ -111,47 +117,65 @@ public class ControladorJogo {
         int danoAtaqueMapa = getMapa().get(posicao).getDanoAtaque();
         Personagem p = null;
         FabricaAtaque fb = null;
-        if (pAtact != null) {
-            if (personagemSelecionado.getJogador() == pAtact.getJogador()) {
-                notificaMensagem("O personagem escolhido é do jogador " + personagemSelecionado.getJogador());
-                personagemSelecionado.setPermiteAtacar(true);
-            } else {
-                try {
-                    if ((personagemSelecionado.getX() < pAtact.getX()) && (personagemSelecionado.getAlcance() <= pAtact.getX() - personagemSelecionado.getX())) {
-                        p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 1);
-                        fb = new FabricaAtaqueEsquerda();
-
-                    } else if ((personagemSelecionado.getX() > pAtact.getX()) && (personagemSelecionado.getAlcance() >= personagemSelecionado.getX() - pAtact.getX())) {
-                        p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 2);
-                        fb = new FabricaAtaqueDireita();
-
-                    } else if ((personagemSelecionado.getY() < pAtact.getY()) && (personagemSelecionado.getAlcance() <= pAtact.getY() - personagemSelecionado.getY())) {
-                        p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 3);
-                        fb = new FabricaAtaqueCima();
-
-                    } else if ((personagemSelecionado.getY() > pAtact.getY()) && (personagemSelecionado.getAlcance() >= personagemSelecionado.getY() - pAtact.getY())) {
-                        p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 4);
-                        fb = new FabricaAtaqueBaixo();
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(JogoAtacando.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (p == null) {
-                    notificaMensagem("O jogador selecionado não se encontra no alcance de ataque");
+        int xAux = x / 64;
+        int yAux = y / 64;
+        if (verificaLimitesAtaque(yAux * 64, xAux * 64, 3) == 3) {
+            if (pAtact != null) {
+                if (personagemSelecionado.getJogador() == pAtact.getJogador()) {
+                    notificaMensagem("O personagem escolhido é do jogador " + personagemSelecionado.getJogador());
+                    personagemSelecionado.setPermiteAtacar(true);
                 } else {
-                    Ataque ataqueFabrica;
-                    int ataque = personagemSelecionado.getForcaAtaque() + danoAtaqueMapa;
-                    ataqueFabrica = fb.atacarPersonagem();
-                    pAtact.setVida(ataqueFabrica.ataque(pAtact, ataque));
-                    movePersonagem(pAtact, p.getX(), p.getY());
-                    validaGanhador();
-                    setHabilitaBotaoSobrecargaAtacar(true);
-                    personagemSelecionado.setPermiteAtacar(false);
+                    try {
+                        if ((personagemSelecionado.getX() < pAtact.getX()) && (personagemSelecionado.getAlcance() <= pAtact.getX() - personagemSelecionado.getX())) {
+                            p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 1);
+                            fb = new FabricaAtaqueEsquerda();
+
+                        } else if ((personagemSelecionado.getX() > pAtact.getX()) && (personagemSelecionado.getAlcance() >= personagemSelecionado.getX() - pAtact.getX())) {
+                            p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 2);
+                            fb = new FabricaAtaqueDireita();
+
+                        } else if ((personagemSelecionado.getY() < pAtact.getY()) && (personagemSelecionado.getAlcance() <= pAtact.getY() - personagemSelecionado.getY())) {
+                            p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 3);
+                            fb = new FabricaAtaqueCima();
+
+                        } else if ((personagemSelecionado.getY() > pAtact.getY()) && (personagemSelecionado.getAlcance() >= personagemSelecionado.getY() - pAtact.getY())) {
+                            p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 4);
+                            fb = new FabricaAtaqueBaixo();
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(JogoAtacando.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    if (p == null) {
+                        notificaMensagem("O jogador selecionado não se encontra no alcance de ataque");
+                    } else {
+                        Ataque ataqueFabrica;
+                        int ataque = personagemSelecionado.getForcaAtaque() + danoAtaqueMapa;
+                        ataqueFabrica = fb.atacarPersonagem();
+                        pAtact.setVida(ataqueFabrica.ataque(pAtact, ataque));
+                        boolean temPersonagem = false;
+                        for (Personagem ps : PersonagensJogo.getInstance().getPersonagens()) {
+                            if ((ps.getX() == p.getX()) && (ps.getY() == p.getY())) {
+                                temPersonagem = true;
+                            }
+                        }
+                        if (!temPersonagem) {
+                            movePersonagem(pAtact, p.getX(), p.getY());
+                        }
+                        validaGanhador();
+                        setJogadas(getJogadas() + 1);
+                        personagemSelecionado.setPermiteAtacar(false);
+                        if (isHabilitaBotaoSobrecargaAtacar()) {
+                            personagemSelecionado.setVida(personagemSelecionado.getVida() - 2);
+                            notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
+                        }
+                    }
                 }
+            } else {
+                notificaMensagem("Jogador a ser atacado não foi selecionado");
+                personagemSelecionado.setPermiteAtacar(true);
             }
         } else {
-            notificaMensagem("Jogador a ser atacado não foi selecionado");
-            personagemSelecionado.setPermiteAtacar(true);
+            notificaMensagem("O jogador selecionado não se encontra no alcance de ataque");
         }
         limpaTela();
         desabilitaBotoes();
@@ -220,6 +244,12 @@ public class ControladorJogo {
         });
     }
 
+    private void limpaMortos(int x, int y) {
+        obss.forEach(obs -> {
+            obs.limpaMorto(x, y);
+        });
+    }
+
     public void acao(int x, int y) {
         if (personagemSelecionado != null) {
             if (isTurnoJogador() == personagemSelecionado.getJogador()) {
@@ -238,20 +268,37 @@ public class ControladorJogo {
         for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
             if (p.getVida() <= 0) {
                 PersonagensJogo.getInstance().addMortos(p.clonar());
+                limpaMortos(p.getX() * 64, p.getY() * 64);
                 pMortos.add(p);
             }
         }
         PersonagensJogo.getInstance().getPersonagens().removeAll(pMortos);
         CalculaGanhador ganhador = new CalculaGanhador();
+        CalculaPersonagens todosP = new CalculaPersonagens();
+        PersonagensJogo.getInstance().accept(todosP);
+        PersonagensJogo.getInstance().acceptTodos(todosP);
         PersonagensJogo.getInstance().accept(ganhador);
-        if (ganhador.ganhador() == 1) {
-            notificaMensagem("O jogador 1 ganhou o jogo!");
-            desabilitaBotoes();
-        } else if (ganhador.ganhador() == 2) {
-            notificaMensagem("O jogador 2 ganhou o jogo!");
-            desabilitaBotoes();
+        if (todosP.menosPersonagens()) {
+            int aux = 0;
+            for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+                if (p.getJogador() == 1) {
+                    aux += 1;
+                }
+            }
+            if (aux == PersonagensJogo.getInstance().getPersonagens().size()) {
+                notificaMensagem("O jogador 1 ganhou o jogo!");
+            } else if (aux == 0) {
+                notificaMensagem("O jogador 2 ganhou o jogo!");
+            }
+        } else {
+            if (ganhador.ganhador() == 1) {
+                notificaMensagem("O jogador 1 ganhou o jogo!");
+                desabilitaBotoes();
+            } else if (ganhador.ganhador() == 2) {
+                notificaMensagem("O jogador 2 ganhou o jogo!");
+                desabilitaBotoes();
+            }
         }
-
     }
 
     public List<Personagem> getPersonagens() {
@@ -350,19 +397,26 @@ public class ControladorJogo {
             if ((x >= pX && x <= pX + pMovimento) || (x <= pX && x >= pX - pMovimento)) {
                 return posicao;
             }
-        }
-        if (x == pX) {
+        } else if (x == pX) {
             if ((y >= pY && y <= pY + pMovimento) || (y <= pY && y >= pY - pMovimento)) {
                 return posicao;
             }
+        } else if ((y >= pY && y <= pY + pMovimento / 2) && (x >= pX && x <= pX + pMovimento / 2)) {
+            return posicao;
+        } else if ((y <= pY && y >= pY - pMovimento / 2) && (x <= pX && x >= pX - pMovimento / 2)) {
+            return posicao;
+        } else if ((y >= pY && y <= pY + pMovimento / 2) && (x <= pX && x >= pX - pMovimento / 2)) {
+            return posicao;
+        } else if ((y <= pY && y >= pY - pMovimento / 2) && (x >= pX && x <= pX + pMovimento / 2)) {
+            return posicao;
         }
         return -1;
     }
-    
+
     public int verificaLimitesAtaque(int y, int x, int posicao) {
         int pX = personagemSelecionado.getX() * 64;
         int pY = personagemSelecionado.getY() * 64;
-        int pMovimento = personagemSelecionado.getAlcance()* 64;
+        int pMovimento = personagemSelecionado.getAlcance() * 64;
         if (y == pY) {
             if ((x >= pX && x <= pX + pMovimento) || (x <= pX && x >= pX - pMovimento)) {
                 return posicao;
@@ -391,6 +445,46 @@ public class ControladorJogo {
             }
         }
         return -1;
+    }
+
+    public boolean isMoveu() {
+        return moveu;
+    }
+
+    public void setMoveu(boolean moveu) {
+        this.moveu = moveu;
+    }
+
+    public boolean isAtacou() {
+        return atacou;
+    }
+
+    public void setAtacou(boolean atacou) {
+        this.atacou = atacou;
+    }
+
+    public int getJogadas() {
+        return jogadas;
+    }
+
+    public void setJogadas(int jogadas) {
+        this.jogadas = jogadas;
+    }
+
+    public void alteraTurno() {
+        if (isTurnoJogador() == 1) {
+            setTurnoJogador(2);
+        } else {
+            setTurnoJogador(1);
+        }
+        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+            p.setPermiteAtacar(true);
+            p.setPermiteMover(true);
+        }
+        moveu = true;
+        atacou = true;
+        jogadas = 0;
+        notificaMensagem("Vez do jogador " + isTurnoJogador());
     }
 
 }

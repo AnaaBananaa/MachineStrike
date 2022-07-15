@@ -11,6 +11,7 @@ import Builder.mapa.Mapa3;
 import Builder.mapa.Mapa4;
 import Builder.mapa.Mapa5;
 import Observer.ObservadorEscolhaMapa;
+import Singleton.PersonagensJogo;
 import controler.ControladorEscolhaMapa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +37,31 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
         btnPreviewMapa1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ep.exibirTela();
+                ep.exibirTela(new Mapa1());
+            }
+        });
+        btnPreviewMapa2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ep.exibirTela(new Mapa2());
+            }
+        });
+        btnPreviewMapa3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ep.exibirTela(new Mapa3());
+            }
+        });
+        btnPreviewMapa4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ep.exibirTela(new Mapa4());
+            }
+        });
+        btnPreviewMapa5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ep.exibirTela(new Mapa5());
             }
         });
         btnEscolha1.addActionListener(new ActionListener() {
@@ -91,11 +116,11 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnPreviewMapa4 = new javax.swing.JButton();
         btnPreviewMapa1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnPreviewMapa2 = new javax.swing.JButton();
+        btnPreviewMapa3 = new javax.swing.JButton();
+        btnPreviewMapa5 = new javax.swing.JButton();
         btnContinuar = new javax.swing.JButton();
         btnEscolha1 = new javax.swing.JButton();
         btnEscolha2 = new javax.swing.JButton();
@@ -110,15 +135,15 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("PREVIEW MAPA 4");
+        btnPreviewMapa4.setText("PREVIEW MAPA 4");
 
         btnPreviewMapa1.setText("PREVIEW MAPA 1");
 
-        jButton3.setText("PREVIEW MAPA 2");
+        btnPreviewMapa2.setText("PREVIEW MAPA 2");
 
-        jButton4.setText("PREVIEW MAPA 3");
+        btnPreviewMapa3.setText("PREVIEW MAPA 3");
 
-        jButton5.setText("PREVIEW MAPA 5");
+        btnPreviewMapa5.setText("PREVIEW MAPA 5");
 
         btnContinuar.setText("CONTINUAR");
 
@@ -160,12 +185,11 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnPreviewMapa1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnPreviewMapa5, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(btnPreviewMapa4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                            .addComponent(btnPreviewMapa3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPreviewMapa2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPreviewMapa1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnEscolha5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -187,19 +211,19 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
+                            .addComponent(btnPreviewMapa2)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
+                            .addComponent(btnPreviewMapa3)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(btnPreviewMapa4)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
+                            .addComponent(btnPreviewMapa5)
                             .addComponent(jLabel5)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnEscolha1)
@@ -263,10 +287,10 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
     private javax.swing.JButton btnEscolha4;
     private javax.swing.JButton btnEscolha5;
     private javax.swing.JButton btnPreviewMapa1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnPreviewMapa2;
+    private javax.swing.JButton btnPreviewMapa3;
+    private javax.swing.JButton btnPreviewMapa4;
+    private javax.swing.JButton btnPreviewMapa5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -276,6 +300,7 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
 
     public void exibirTela() {
         setVisible(true);
+        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
     }
 
     @Override

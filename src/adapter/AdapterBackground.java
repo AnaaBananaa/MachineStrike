@@ -5,6 +5,7 @@
  */
 package adapter;
 
+import java.awt.Color;
 import java.awt.Font;
 
 /**
@@ -13,6 +14,6 @@ import java.awt.Font;
  */
 public interface AdapterBackground {
     
-    void salvarLayout(String cor, Font font);
+    void salvarLayout(Color cor, Font font);
     
 }

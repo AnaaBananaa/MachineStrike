@@ -58,5 +58,10 @@ public class PersonagemPuxar extends Personagem{
     public String getCaminhoImagem() {
         return "";
     }
+
+    @Override
+    public String nomeClasse() {
+        return "Puxar";
+    }
     
 }

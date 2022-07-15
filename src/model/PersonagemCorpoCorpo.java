@@ -24,5 +24,11 @@ public class PersonagemCorpoCorpo extends Personagem{
     public String getCaminhoImagem() {
         return "";
     }
+
+    @Override
+    public String nomeClasse() {
+        return "Corpo a Corpo";
+    }
+    
     
 }

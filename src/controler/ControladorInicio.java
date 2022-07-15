@@ -6,9 +6,14 @@
 package controler;
 
 import Observer.ObservadorInicio;
+import adapter.AdapterBackground;
+import adapter.AdapterDark;
+import adapter.AdapterDefault;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-import view.escolhaPersonagem;
+import javax.swing.UIManager;
 
 /**
  *
@@ -21,6 +26,20 @@ public class ControladorInicio {
     
     public void anexar(ObservadorInicio obs){
         this.obss.add(obs);
+    }
+    
+    public void darkMode(boolean b){
+        Font font = null;
+        if(b){
+            AdapterBackground ab = new AdapterDark();
+            font = new Font("Verdana", Font.BOLD, 20);
+            ab.salvarLayout(new Color(104, 104, 104), font);
+        }else{
+            AdapterBackground ab = new AdapterDefault();
+            font = new Font("Verdana", Font.BOLD, 10);
+            ab.salvarLayout(new Color(243, 243, 243), font);
+        }
+        UIManager.put("Button.font", font);
     }
     
     public void exibir(){

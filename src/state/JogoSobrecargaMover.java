@@ -41,6 +41,7 @@ public class JogoSobrecargaMover extends JogoEstado {
                 c.getPersonagemSelecionado().setPermiteMover(false);
                 c.movePersonagem(c.getPersonagemSelecionado(), xAux, yAux);
                 this.c.notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
+                c.setJogadas(c.getJogadas() + 1);
             } else {
                 c.notificaMensagem("O campo escolhido está fora dos limites do personagem");
                 c.desabilitaBotoes();

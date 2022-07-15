@@ -6,6 +6,7 @@
 package adapter;
 
 import Singleton.PersonagensJogo;
+import java.awt.Color;
 import java.awt.Font;
 
 /**
@@ -14,14 +15,14 @@ import java.awt.Font;
  */
 public class LayoutDark {
     
-    private String corFundo;
+    private Color corFundo;
     private Font fonte;
 
-    public String getCorFundo() {
+    public Color getCorFundo() {
         return corFundo;
     }
 
-    public void setCorFundo(String corFundo) {
+    public void setCorFundo(Color corFundo) {
         this.corFundo = corFundo;
     }
 

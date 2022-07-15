@@ -31,10 +31,8 @@ public class JogoSobrecargaAtacar extends JogoEstado {
     public void acao(int x, int y) {
         try {
             Personagem pAtact = c.getPeca(x, y);
+            c.setHabilitaBotaoSobrecargaAtacar(true);
             c.atacaPersonagem(pAtact, x, y);
-            c.getPersonagemSelecionado().setVida(c.getPersonagemSelecionado().getVida() - 2);
-            c.setHabilitaBotaoSobrecargaAtacar(false);
-            c.notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
             proxEstado();
         } catch (Exception ex) {
             Logger.getLogger(JogoSobrecargaAtacar.class.getName()).log(Level.SEVERE, null, ex);

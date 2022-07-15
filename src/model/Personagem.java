@@ -69,6 +69,7 @@ public abstract class Personagem implements Cloneable {
     }
     public abstract Personagem ataqueDaClasse(Personagem pAtact, int posicao);
     public abstract String getCaminhoImagem();
+    public abstract String nomeClasse();
 
     public void rotacionar() {
         this.estado.rotacionar();

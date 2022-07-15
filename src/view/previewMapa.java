@@ -5,7 +5,9 @@
  */
 package view;
 
-import Singleton.Paint;
+import Builder.mapa.BuilderMapa;
+import Singleton.PersonagensJogo;
+import Singleton.Preview;
 
 /**
  *
@@ -19,9 +21,11 @@ public class previewMapa extends javax.swing.JFrame {
     public previewMapa() {
         initComponents();
     }
-    
-    public void exibirTela(){
+
+    public void exibirTela(BuilderMapa mapa) {
         setVisible(true);
+        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
+        ((Preview) jPanel1).desenhaPreviewMapa(mapa);
     }
 
     /**
@@ -33,7 +37,7 @@ public class previewMapa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new Paint();
+        jPanel1 = new Preview();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,9 +57,9 @@ public class previewMapa extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(30, 30, 30)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

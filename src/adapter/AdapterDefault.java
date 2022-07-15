@@ -5,6 +5,7 @@
  */
 package adapter;
 
+import java.awt.Color;
 import java.awt.Font;
 
 /**
@@ -13,10 +14,10 @@ import java.awt.Font;
  */
 public class AdapterDefault implements AdapterBackground{
     
-    private LayoutDefault adaptado;
+    private LayoutDefault adaptado = new LayoutDefault();
 
     @Override
-    public void salvarLayout(String cor, Font font) {
+    public void salvarLayout(Color cor, Font font) {
         adaptado.salvaTema(cor, font);
     }
     

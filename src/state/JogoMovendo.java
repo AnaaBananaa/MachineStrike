@@ -33,10 +33,15 @@ public class JogoMovendo extends JogoEstado {
             if (c.verificaLimites(yAux * 64, xAux * 64, 3) == 3) {
                 c.getPersonagemSelecionado().setPermiteMover(false);
                 c.movePersonagem(c.getPersonagemSelecionado(), xAux, yAux);
+                c.setJogadas( c.getJogadas() + 1);
+                c.setMoveu(false);
             } else {
                 if (c.verificaSprint(yAux * 64, xAux * 64, 3) == 3) {
-                    c.setHabilitaBotaoMatar(false);
                     c.movePersonagem(c.getPersonagemSelecionado(), xAux, yAux);
+                    c.setJogadas(2);
+                    c.setMoveu(false);
+                    c.setAtacou(false);
+                    c.notificaMensagem("Você utilizou o sprint");
                 } else {
                     c.notificaMensagem("O campo escolhido está fora dos limites do personagem");
                     c.desabilitaBotoes();
@@ -49,7 +54,6 @@ public class JogoMovendo extends JogoEstado {
             c.setPersonagemSelecionado(null);
         }
         c.limpaTela();
-        c.setHabilitaBotaoSobrecargaMover(true);
         proxEstado();
     }
 

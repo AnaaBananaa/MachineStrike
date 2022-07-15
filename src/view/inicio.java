@@ -29,6 +29,7 @@ public class inicio extends javax.swing.JFrame implements Observer.ObservadorIni
         btnIniciar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                uc.darkMode(jRadioButton1.isSelected());
                 ep.exibirTela();
             }
         });
@@ -51,6 +52,7 @@ public class inicio extends javax.swing.JFrame implements Observer.ObservadorIni
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -70,14 +72,17 @@ public class inicio extends javax.swing.JFrame implements Observer.ObservadorIni
             }
         });
 
+        jRadioButton1.setText("Habilitar Dark Mode");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(284, 284, 284)
-                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(213, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,6 +91,15 @@ public class inicio extends javax.swing.JFrame implements Observer.ObservadorIni
                         .addComponent(jLabel1))
                     .addComponent(jLabel2))
                 .addGap(208, 208, 208))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,7 +110,9 @@ public class inicio extends javax.swing.JFrame implements Observer.ObservadorIni
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(btnIniciar)
-                .addGap(53, 53, 53))
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton1)
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -105,6 +121,10 @@ public class inicio extends javax.swing.JFrame implements Observer.ObservadorIni
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -145,5 +165,6 @@ public class inicio extends javax.swing.JFrame implements Observer.ObservadorIni
     private javax.swing.JButton btnIniciar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JRadioButton jRadioButton1;
     // End of variables declaration//GEN-END:variables
 }

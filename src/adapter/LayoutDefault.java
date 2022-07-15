@@ -6,6 +6,7 @@
 package adapter;
 
 import Singleton.PersonagensJogo;
+import java.awt.Color;
 import java.awt.Font;
 
 /**
@@ -14,7 +15,7 @@ import java.awt.Font;
  */
 public class LayoutDefault {
     
-    public void salvaTema(String corPadrao, Font fonte){
+    public void salvaTema(Color corPadrao, Font fonte){
         PersonagensJogo.getInstance().setFonte(fonte);
         PersonagensJogo.getInstance().setCorFundo(corPadrao);
     }

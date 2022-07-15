@@ -5,6 +5,8 @@
  */
 package Singleton;
 
+import Builder.mapa.BuilderMapa;
+import Builder.mapa.GeradorMapa;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.List;

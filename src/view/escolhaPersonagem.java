@@ -6,12 +6,16 @@
 package view;
 
 import Observer.ObservadorEscolhaPersonagem;
+import Singleton.PersonagensJogo;
 import controler.ControladorEscolhaPersonagem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import model.Personagem;
 import model.Personagem1;
@@ -36,6 +40,7 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
      */
     private ControladorEscolhaPersonagem uc;
     private escolhaMapa ep = new escolhaMapa();
+    private InfoPersonagem inf = new InfoPersonagem();
 
     public escolhaPersonagem() {
         this.uc = new ControladorEscolhaPersonagem();
@@ -52,12 +57,36 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
             }
         }
         );
+        btnInfo1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem1(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         btnPersonagem2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     uc.salvarPeronsagem(new Personagem2(uc.getJogador()));
                 } catch (Exception ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        btnInfo2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem2(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
                     Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -72,12 +101,36 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
                 }
             }
         });
+        btnInfo3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem3(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         btnPersonagem4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     uc.salvarPeronsagem(new Personagem4(uc.getJogador()));
                 } catch (Exception ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        btnInfo4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem4(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
                     Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -92,12 +145,36 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
                 }
             }
         });
+        btnInfo5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem5(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         btnPersonagem6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     uc.salvarPeronsagem(new Personagem6(uc.getJogador()));
                 } catch (Exception ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        btnInfo6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem6(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
                     Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -112,12 +189,36 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
                 }
             }
         });
+        btnInfo7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem7(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         btnPersonagem8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     uc.salvarPeronsagem(new Personagem8(uc.getJogador()));
                 } catch (Exception ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        btnInfo8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem8(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
                     Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -132,12 +233,36 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
                 }
             }
         });
+        btnInfo9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem9(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         btnPersonagem10.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     uc.salvarPeronsagem(new Personagem10(uc.getJogador()));
                 } catch (Exception ex) {
+                    Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        btnInfo10.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Personagem p = new Personagem10(0);
+                    p.setFotoPersonagem(ImageIO.read(new File(p.getCaminhoImagem() + "Frente.png")));
+                    inf.exibirTela(p);
+                } catch (IOException ex) {
                     Logger.getLogger(escolhaPersonagem.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -173,6 +298,8 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
     @Override
     public void exibirTela() {
         setVisible(true);
+        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
+        getContentPane().setFont(PersonagensJogo.getInstance().getFonte());
     }
 
     @Override
@@ -184,7 +311,7 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
     public void mostrarMensagem(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem);
     }
-    
+
     /**
      * Creates new form inicio
      */
@@ -224,6 +351,16 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
         btnPersonagem9 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         btnPersonagem8 = new javax.swing.JButton();
+        btnInfo1 = new javax.swing.JButton();
+        btnInfo2 = new javax.swing.JButton();
+        btnInfo3 = new javax.swing.JButton();
+        btnInfo4 = new javax.swing.JButton();
+        btnInfo5 = new javax.swing.JButton();
+        btnInfo6 = new javax.swing.JButton();
+        btnInfo10 = new javax.swing.JButton();
+        btnInfo9 = new javax.swing.JButton();
+        btnInfo8 = new javax.swing.JButton();
+        btnInfo7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -238,6 +375,8 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
         btnDesfaz.setText("Desfazer Escolha");
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         personagem1.setText("ESCOLHER");
         personagem1.addActionListener(new java.awt.event.ActionListener() {
@@ -294,110 +433,178 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
 
         btnPersonagem8.setText("ESCOLHER");
 
+        btnInfo1.setText("INFO");
+        btnInfo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfo1ActionPerformed(evt);
+            }
+        });
+
+        btnInfo2.setText("INFO");
+
+        btnInfo3.setText("INFO");
+
+        btnInfo4.setText("INFO");
+
+        btnInfo5.setText("INFO");
+
+        btnInfo6.setText("INFO");
+
+        btnInfo10.setText("INFO");
+
+        btnInfo9.setText("INFO");
+
+        btnInfo8.setText("INFO");
+
+        btnInfo7.setText("INFO");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(personagem1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnPersonagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(personagem1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnPersonagem3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnPersonagem4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnPersonagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPersonagem3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnPersonagem5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnPersonagem6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnPersonagem4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPersonagem5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnPersonagem7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnPersonagem6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPersonagem7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPersonagem8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPersonagem9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnPersonagem10, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPersonagem8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPersonagem9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnPersonagem10, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnInfo1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnInfo10, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnPersonagem9)
-                            .addComponent(btnPersonagem10)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPersonagem8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnPersonagem6)
                             .addComponent(btnPersonagem7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnPersonagem4)
                             .addComponent(btnPersonagem5)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(personagem1)
                             .addComponent(btnPersonagem2)
-                            .addComponent(btnPersonagem3))))
-                .addGap(41, 41, 41))
+                            .addComponent(btnPersonagem3)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel9)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPersonagem9)
+                            .addComponent(btnPersonagem10)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPersonagem8)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnInfo9)
+                        .addComponent(btnInfo10))
+                    .addComponent(btnInfo8)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnInfo6)
+                        .addComponent(btnInfo7))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnInfo4)
+                        .addComponent(btnInfo5))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnInfo1)
+                        .addComponent(btnInfo2)
+                        .addComponent(btnInfo3)))
+                .addGap(36, 36, 36))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -411,7 +618,7 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnDesfaz, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 325, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 581, Short.MAX_VALUE)
                         .addComponent(btnMudaJogador, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -423,15 +630,15 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnContinuar)
                     .addComponent(btnMudaJogador)
                     .addComponent(btnDesfaz))
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -440,6 +647,10 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
     private void personagem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personagem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_personagem1ActionPerformed
+
+    private void btnInfo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInfo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -484,6 +695,16 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnContinuar;
     private javax.swing.JButton btnDesfaz;
+    private javax.swing.JButton btnInfo1;
+    private javax.swing.JButton btnInfo10;
+    private javax.swing.JButton btnInfo2;
+    private javax.swing.JButton btnInfo3;
+    private javax.swing.JButton btnInfo4;
+    private javax.swing.JButton btnInfo5;
+    private javax.swing.JButton btnInfo6;
+    private javax.swing.JButton btnInfo7;
+    private javax.swing.JButton btnInfo8;
+    private javax.swing.JButton btnInfo9;
     private javax.swing.JButton btnMudaJogador;
     private javax.swing.JButton btnPersonagem10;
     private javax.swing.JButton btnPersonagem2;

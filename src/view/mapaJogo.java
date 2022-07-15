@@ -7,6 +7,7 @@ package view;
 
 import Singleton.Canva;
 import Singleton.Paint;
+import Singleton.PersonagensJogo;
 import controler.ControladorJogo;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -73,11 +74,6 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             @Override
             public void itemStateChanged(ItemEvent e) {
                 pAux = (Personagem) e.getItem();
-                if (pAux.getJogador() == 1) {
-//                    ((Canva) jPanel2).desenhaLinhas(1);
-                } else {
-//                    ((Canva) jPanel2).desenhaLinhas(2);
-                }
             }
         });
         btnMatar.addActionListener(new ActionListener() {
@@ -121,11 +117,7 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         btnTurno.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (controladorJogo.isTurnoJogador() == 1) {
-                    controladorJogo.setTurnoJogador(2);
-                } else {
-                    controladorJogo.setTurnoJogador(1);
-                }
+                controladorJogo.alteraTurno();
             }
         });
     }
@@ -147,13 +139,22 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             ((Canva) jPanel2).desenhaLimites(l);
         }
     }
-    
+
+    @Override
+    public void limpaMorto(int x, int y) {
+        for (JLabel label : labels) {
+            if (label.getX() == x && label.getY() == y) {
+                label.setIcon(null);
+            }
+        }
+    }
+
     @Override
     public void selecionaLimitesAtaque() {
         if (controladorJogo.getPersonagemSelecionado() != null) {
             List<JLabel> l = new ArrayList<>();
             for (int i = 0; i < labels.size(); i++) {
-                if (controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
+                if (controladorJogo.verificaLimitesAtaque(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
                     l.add(labels.get(controladorJogo.verificaLimitesAtaque(labels.get(i).getY(), labels.get(i).getX(), i)));
                 }
             }
@@ -175,8 +176,11 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         }
     }
 
+    @Override
     public void exibirTela() {
         setVisible(true);
+        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
+        getContentPane().setFont(PersonagensJogo.getInstance().getFonte());
     }
 
     public void defineLabel() {
@@ -344,7 +348,6 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(comboPersonagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,8 +364,11 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
                             .addComponent(btnSobMover)
                             .addComponent(btnSobAtaque))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnTurno)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addComponent(btnTurno)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(194, Short.MAX_VALUE))))
         );
 
         pack();
@@ -443,6 +449,7 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         btnMover.setEnabled(controladorJogo.getHabilitaBotaoMover());
         btnSobAtaque.setEnabled(controladorJogo.isHabilitaBotaoSobrecargaAtacar());
         btnSobMover.setEnabled(controladorJogo.isHabilitaBotaoSobrecargaMover());
+        btnTurno.setEnabled(controladorJogo.getJogadas() == 2 || !controladorJogo.isMoveu());
     }
 
     @Override

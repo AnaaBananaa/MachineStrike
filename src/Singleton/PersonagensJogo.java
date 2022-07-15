@@ -5,6 +5,7 @@
  */
 package Singleton;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class PersonagensJogo {
     private List<Personagem> personagens = new ArrayList<>();
     private List<Personagem> mortos = new ArrayList<>();
     private List<MapaGenerico> mapa = new ArrayList<>();
-    private String corFundo;
+    private Color corFundo;
     private Font fonte;
 
     public synchronized static PersonagensJogo getInstance() {
@@ -57,11 +58,11 @@ public class PersonagensJogo {
         this.mapa = mapa;
     }
 
-    public String getCorFundo() {
+    public Color getCorFundo() {
         return corFundo;
     }
 
-    public void setCorFundo(String corFundo) {
+    public void setCorFundo(Color corFundo) {
         this.corFundo = corFundo;
     }
 
@@ -75,6 +76,12 @@ public class PersonagensJogo {
 
     public void accept(VisitorPersonagem visitor) {
         for (Personagem item : getMortos()) {
+            item.accept(visitor);
+        }
+    }
+    
+     public void acceptTodos(VisitorPersonagem visitor) {
+        for (Personagem item : getPersonagens()) {
             item.accept(visitor);
         }
     }
