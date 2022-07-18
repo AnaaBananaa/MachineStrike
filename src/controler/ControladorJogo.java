@@ -60,10 +60,13 @@ public class ControladorJogo {
             int yAux = y / 64;
             for (Personagem p : getPersonagem()) {
                 if ((p.getX()) == xAux && (p.getY()) == yAux) {
-                    setHabilitaBotaoMatar(p.isPermiteAtacar() && atacou);
-                    setHabilitaBotaoMover(p.isPermiteMover() && moveu);
-                    setHabilitaBotaoSobrecargaAtacar(jogadas == 2);
-                    setHabilitaBotaoSobrecargaMover(jogadas == 2);
+                    if (jogadas == 2) {
+                        setHabilitaBotaoSobrecargaAtacar(jogadas == 2);
+                        setHabilitaBotaoSobrecargaMover(jogadas == 2);
+                    } else {
+                        setHabilitaBotaoMatar((p.isPermiteAtacar() && atacou) && jogadas < 2);
+                        setHabilitaBotaoMover(p.isPermiteMover() || moveu);
+                    }
                     setHabilitaBotaoRotacionar(true);
                     atualizarBotoes();
                     return p;
@@ -161,6 +164,7 @@ public class ControladorJogo {
                         if (!temPersonagem) {
                             movePersonagem(pAtact, p.getX(), p.getY());
                         }
+                        notificaMensagem("O personagem " + p.getNome() + " foi atacado! Sua vida atual é: " + p.getVida());
                         validaGanhador();
                         setJogadas(getJogadas() + 1);
                         personagemSelecionado.setPermiteAtacar(false);
@@ -254,8 +258,6 @@ public class ControladorJogo {
         if (personagemSelecionado != null) {
             if (isTurnoJogador() == personagemSelecionado.getJogador()) {
                 this.estado.acao(x, y);
-            } else {
-                notificaMensagem("O personagem selecionado não faz parte do turno");
             }
         } else {
             this.estado.acao(x, y);
@@ -393,23 +395,100 @@ public class ControladorJogo {
         int pX = personagemSelecionado.getX() * 64;
         int pY = personagemSelecionado.getY() * 64;
         int pMovimento = personagemSelecionado.getMovimentacao() * 64;
-        if (y == pY) {
-            if ((x >= pX && x <= pX + pMovimento) || (x <= pX && x >= pX - pMovimento)) {
-                return posicao;
+        List<Integer> posicoesX = new ArrayList<>();
+        List<Integer> posicoesY = new ArrayList<>();
+        List<Integer> posicoesDiagonalX = new ArrayList<>();
+        List<Integer> posicoesDiagonalY = new ArrayList<>();
+        int[][] matrizDiagonal = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
+        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+            if (p != personagemSelecionado) {
+                if (p.getY() == personagemSelecionado.getY()) {
+                    if (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao()) {
+                        for (int i = p.getX(); i <= 7; i++) {
+                            posicoesX.add(i * 64);
+                        }
+                    } else if (p.getX() <= personagemSelecionado.getX() && p.getX() >= personagemSelecionado.getX() - personagemSelecionado.getMovimentacao()) {
+                        for (int i = p.getX(); i >= 0; i--) {
+                            posicoesX.add(i * 64);
+                        }
+                    }
+                } else if (p.getX() == personagemSelecionado.getX()) {
+                    if (p.getY() >= personagemSelecionado.getY() && p.getY() <= personagemSelecionado.getY() + personagemSelecionado.getMovimentacao()) {
+                        for (int i = p.getY(); i <= 7; i++) {
+                            posicoesY.add(i * 64);
+                        }
+                    } else if (p.getY() <= personagemSelecionado.getY() && p.getY() >= personagemSelecionado.getY() - personagemSelecionado.getMovimentacao()) {
+                        for (int i = p.getY(); i >= 0; i--) {
+                            posicoesY.add(i * 64);
+                        }
+                    }
+                } else if ((p.getY() >= personagemSelecionado.getY() && p.getY() <= personagemSelecionado.getY() + personagemSelecionado.getMovimentacao() / 2) && (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i <= 7; i++) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX += 1;
+                            auxY += 1;
+                        }
+                    }
+                } else if ((p.getY() <= personagemSelecionado.getY() && p.getY() >= personagemSelecionado.getY() - personagemSelecionado.getMovimentacao() / 2) && (p.getX() <= personagemSelecionado.getX() && p.getX() >= personagemSelecionado.getX() - personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i >= 8 - p.getY(); i--) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX -= 1;
+                            auxY -= 1;
+                        }
+                    }
+                } else if ((p.getY() >= personagemSelecionado.getY() && p.getY() <= personagemSelecionado.getY() + personagemSelecionado.getMovimentacao() / 2) && (p.getX() <= personagemSelecionado.getX() && p.getX() >= personagemSelecionado.getX() - personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i <= 7; i++) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX -= 1;
+                            auxY += 1;
+                        }
+                    }
+                } else if ((p.getY() <= personagemSelecionado.getY() && p.getY() >= personagemSelecionado.getY() - personagemSelecionado.getMovimentacao() / 2) && (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i >= 8 - p.getY(); i--) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX += 1;
+                            auxY -= 1;
+                        }
+                    }
+                }
             }
-        } else if (x == pX) {
-            if ((y >= pY && y <= pY + pMovimento) || (y <= pY && y >= pY - pMovimento)) {
-                return posicao;
-            }
-        } else if ((y >= pY && y <= pY + pMovimento / 2) && (x >= pX && x <= pX + pMovimento / 2)) {
-            return posicao;
-        } else if ((y <= pY && y >= pY - pMovimento / 2) && (x <= pX && x >= pX - pMovimento / 2)) {
-            return posicao;
-        } else if ((y >= pY && y <= pY + pMovimento / 2) && (x <= pX && x >= pX - pMovimento / 2)) {
-            return posicao;
-        } else if ((y <= pY && y >= pY - pMovimento / 2) && (x >= pX && x <= pX + pMovimento / 2)) {
-            return posicao;
         }
+
+        int auxX = x / 64;
+        int auxY = y / 64;
+        if (getPeca(x, y)
+                == null) {
+            if (y == pY) {
+                if (((x >= pX && x <= pX + pMovimento) || (x <= pX && x >= pX - pMovimento)) && !posicoesX.contains(x)) {
+                    return posicao;
+                }
+            } else if (x == pX) {
+                if (((y >= pY && y <= pY + pMovimento) || (y <= pY && y >= pY - pMovimento)) && !posicoesY.contains(y)) {
+                    return posicao;
+                }
+            } else if (((y >= pY && y <= pY + pMovimento / 2) && (x >= pX && x <= pX + pMovimento / 2)) && (matrizDiagonal[auxX][auxY] == 0)) {
+                return posicao;
+            } else if (((y <= pY && y >= pY - pMovimento / 2) && (x <= pX && x >= pX - pMovimento / 2)) && (matrizDiagonal[auxX][auxY] == 0)) {
+                return posicao;
+            } else if (((y >= pY && y <= pY + pMovimento / 2) && (x <= pX && x >= pX - pMovimento / 2)) && (matrizDiagonal[auxX][auxY] == 0)) {
+                return posicao;
+            } else if (((y <= pY && y >= pY - pMovimento / 2) && (x >= pX && x <= pX + pMovimento / 2)) && (matrizDiagonal[auxX][auxY] == 0)) {
+                return posicao;
+            }
+        }
+
         return -1;
     }
 
@@ -434,13 +513,107 @@ public class ControladorJogo {
         int pX = personagemSelecionado.getX() * 64;
         int pY = personagemSelecionado.getY() * 64;
         int pMovimento = personagemSelecionado.getMovimentacao() * 64;
-        if (y == pY) {
-            if ((x == pX + pMovimento + 64) || (x == pX - pMovimento - 64)) {
-                return posicao;
+        List<Integer> posicoesDiagonalX = new ArrayList<>();
+        List<Integer> posicoesDiagonalY = new ArrayList<>();
+        int[][] matrizDiagonal = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
+        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+            if (p != personagemSelecionado) {
+                if (p.getY() == personagemSelecionado.getY()) {
+                    if (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao()) {
+                        int auxX = p.getX();
+                        int auxY = p.getY();
+                        for (int i = p.getX(); i <= 7; i++) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX += 1;
+                        }
+                    } else if (p.getX() <= personagemSelecionado.getX() && p.getX() >= personagemSelecionado.getX() - personagemSelecionado.getMovimentacao()) {
+                        int auxX = p.getX();
+                        int auxY = p.getY();
+                        for (int i = p.getX(); i >= 0; i--) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX -= 1;
+                        }
+                    }
+                } else if (p.getX() == personagemSelecionado.getX()) {
+                    if (p.getY() >= personagemSelecionado.getY() && p.getY() <= personagemSelecionado.getY() + personagemSelecionado.getMovimentacao()) {
+                        int auxX = p.getX();
+                        int auxY = p.getY();
+                        for (int i = p.getY(); i <= 7; i++) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxY += 1;
+                        }
+                    } else if (p.getY() <= personagemSelecionado.getY() && p.getY() >= personagemSelecionado.getY() - personagemSelecionado.getMovimentacao()) {
+                        int auxX = p.getX();
+                        int auxY = p.getY();
+                        for (int i = p.getY(); i >= 0; i--) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxY -= 1;
+                        }
+                    }
+                } else if ((p.getY() >= personagemSelecionado.getY() && p.getY() <= personagemSelecionado.getY() + personagemSelecionado.getMovimentacao() / 2) && (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i <= 7; i++) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX += 1;
+                            auxY += 1;
+                        }
+                    }
+                } else if ((p.getY() <= personagemSelecionado.getY() && p.getY() >= personagemSelecionado.getY() - personagemSelecionado.getMovimentacao() / 2) && (p.getX() <= personagemSelecionado.getX() && p.getX() >= personagemSelecionado.getX() - personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i >= 0; i--) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX -= 1;
+                            auxY -= 1;
+                        }
+                    }
+                } else if ((p.getY() >= personagemSelecionado.getY() && p.getY() <= personagemSelecionado.getY() + personagemSelecionado.getMovimentacao() / 2) && (p.getX() <= personagemSelecionado.getX() && p.getX() >= personagemSelecionado.getX() - personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i <= 7; i++) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX -= 1;
+                            auxY += 1;
+                        }
+                    }
+                } else if ((p.getY() <= personagemSelecionado.getY() && p.getY() >= personagemSelecionado.getY() - personagemSelecionado.getMovimentacao() / 2) && (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao() / 2)) {
+                    int auxX = p.getX();
+                    int auxY = p.getY();
+                    for (int i = p.getY(); i >= 0; i--) {
+                        if ((auxX >= 0 && auxX <= 7) && (auxY >= 0 && auxY <= 7)) {
+                            matrizDiagonal[auxX][auxY] = 1;
+                            auxX += 1;
+                            auxY -= 1;
+                        }
+                    }
+                }
             }
         }
-        if (x == pX) {
-            if ((y == pY + pMovimento + 64) || (y == pY - pMovimento - 64)) {
+        int auxX = x / 64;
+        int auxY = y / 64;
+
+        if (getPeca(x, y)
+                == null) {
+            if (y == pY) {
+                if (((x == pX + pMovimento + 64) || (x == pX - pMovimento - 64)) && (matrizDiagonal[auxX][auxY] == 0)) {
+                    return posicao;
+                }
+            }
+            if (x == pX) {
+                if (((y == pY + pMovimento + 64) || (y == pY - pMovimento - 64)) && (matrizDiagonal[auxX][auxY] == 0)) {
+                    return posicao;
+                }
+            } else if ((y >= pY && y <= pY + 64 + pMovimento / 2) && (x >= pX && x <= pX + 64 + pMovimento / 2) && (matrizDiagonal[auxX][auxY] == 0)) {
+                return posicao;
+            } else if ((y <= pY && y >= pY - 64 - pMovimento / 2) && (x <= pX && x >= pX - 64 - pMovimento / 2) && (matrizDiagonal[auxX][auxY] == 0)) {
+                return posicao;
+            } else if ((y >= pY && y <= pY + 64 + pMovimento / 2) && (x <= pX && x >= pX - 64 - pMovimento / 2) && (matrizDiagonal[auxX][auxY] == 0)) {
+                return posicao;
+            } else if ((y <= pY && y >= pY - 64 - pMovimento / 2) && (x >= pX && x <= pX + 64 + pMovimento / 2) && (matrizDiagonal[auxX][auxY] == 0)) {
                 return posicao;
             }
         }
@@ -485,6 +658,7 @@ public class ControladorJogo {
         atacou = true;
         jogadas = 0;
         notificaMensagem("Vez do jogador " + isTurnoJogador());
+        desabilitaBotoes();
     }
 
 }

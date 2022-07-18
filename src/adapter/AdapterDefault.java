@@ -16,9 +16,8 @@ public class AdapterDefault implements AdapterBackground{
     
     private LayoutDefault adaptado = new LayoutDefault();
 
-    @Override
-    public void salvarLayout(Color cor, Font font) {
-        adaptado.salvaTema(cor, font);
+    public void salvarLayout(Color cor, Color corFonte, Color corBotao) {
+        adaptado.salvaTema(cor, corFonte, corBotao);
     }
     
 }

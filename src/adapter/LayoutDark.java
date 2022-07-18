@@ -14,9 +14,10 @@ import java.awt.Font;
  * @author Aners
  */
 public class LayoutDark {
-    
+
     private Color corFundo;
-    private Font fonte;
+    private Color corBotao;
+    private Color corFonte;
 
     public Color getCorFundo() {
         return corFundo;
@@ -26,21 +27,28 @@ public class LayoutDark {
         this.corFundo = corFundo;
     }
 
-    public Font getFonte() {
-        return fonte;
+    public Color getCorBotao() {
+        return corBotao;
     }
 
-    public void setFonte(Font fonte) {
-        this.fonte = fonte;
+    public void setCorBotao(Color corBotao) {
+        this.corBotao = corBotao;
     }
-    
-    public void validaFonte(){
-        if(fonte.getSize() > 16){
-            fonte = new Font(fonte.getFontName(), fonte.getStyle(), 16);
+
+    public Color getCorFonte() {
+        return corFonte;
+    }
+
+    public void setCorFonte(Color corFonte) {
+        this.corFonte = corFonte;
+    }
+
+    public void atribuiCor() {
+        if (corFundo.getBlue() > 150) {
+            PersonagensJogo.getInstance().setCorFonte(Color.BLACK);
         }
-        PersonagensJogo.getInstance().setFonte(fonte);
         PersonagensJogo.getInstance().setCorFundo(corFundo);
+        PersonagensJogo.getInstance().setCorBotoes(corBotao);
     }
-    
-    
+
 }

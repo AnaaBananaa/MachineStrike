@@ -6,9 +6,8 @@
 package view;
 
 import Singleton.PersonagensJogo;
+import java.awt.Color;
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import model.Personagem;
@@ -41,7 +40,7 @@ public class InfoPersonagem extends javax.swing.JFrame {
     public void exibirTela(Personagem p) {
         setVisible(true);
         getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
-        getContentPane().setFont(PersonagensJogo.getInstance().getFonte());
+        getContentPane().setForeground(PersonagensJogo.getInstance().getCorFonte());
         l.setIcon(new ImageIcon(new ImageIcon(p.getFotoPersonagem()).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
         l.setBounds(50, 30, 64, 64);
         lClasse.setText(p.nomeClasse());

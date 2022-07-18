@@ -15,11 +15,7 @@ public class AtaqueEsquerda implements Ataque {
 
     @Override
     public int ataque(Personagem p, int ataque) {
-        if (p.getJogador() == 2) {
-            return p.getVida() - (ataque - p.getEsquerda());
-        } else {
-            return p.getVida() - (ataque - p.getDireita());
-        }
+        return p.getVida() - (ataque - p.getEsquerda());
     }
 
 }

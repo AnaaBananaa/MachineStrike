@@ -95,11 +95,6 @@ public class ControladorEscolhaPersonagem {
                 aux1 += 1;
                 img = ImageIO.read(new File(p.getCaminhoImagem() + "Costas.png"));
                 p.setFotoPersonagem(img);
-                Personagem pAux = p.clonar();
-                p.setEsquerda(pAux.getDireita());
-                p.setDireita(pAux.getEsquerda());
-                p.setFrente(pAux.getCostas());
-                p.setCostas(pAux.getFrente());
             } else {
                 enviarMensagem("Os personagens do jogador 1 já foram escolhidos, mude de jogador");
             }

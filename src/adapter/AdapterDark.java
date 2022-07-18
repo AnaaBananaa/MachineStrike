@@ -12,15 +12,16 @@ import java.awt.Font;
  *
  * @author Aners
  */
-public class AdapterDark implements AdapterBackground{
+public class AdapterDark implements AdapterBackground {
 
     private LayoutDark adaptado = new LayoutDark();
-    
+
     @Override
-    public void salvarLayout(Color cor, Font font) {
+    public void salvarLayout(Color cor, Color corFonte, Color corBotao) {
         adaptado.setCorFundo(cor);
-        adaptado.setFonte(font);
-        adaptado.validaFonte();
+        adaptado.setCorBotao(corBotao);
+        adaptado.setCorFonte(corFonte);
+        adaptado.atribuiCor();
     }
-    
+
 }

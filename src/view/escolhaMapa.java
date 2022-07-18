@@ -161,11 +161,11 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
 
         jLabel2.setText("MAPA 2: Mapa com 2 terrenos.");
 
-        jLabel3.setText("MAPA 3: Mapa com 2 terrenos.");
+        jLabel3.setText("MAPA 3: Mapa com 3 terrenos.");
 
-        jLabel4.setText("MAPA 4: Mapa com 3 terrenos.");
+        jLabel4.setText("MAPA 4: Mapa com 4 terrenos.");
 
-        jLabel5.setText("MAPA 5: Mapa com 4 terrenos.");
+        jLabel5.setText("MAPA 5: Mapa com 5 terrenos.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

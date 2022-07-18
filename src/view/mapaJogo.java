@@ -131,7 +131,7 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
                 if (controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
                     l.add(labels.get(controladorJogo.verificaLimites(labels.get(i).getY(), labels.get(i).getX(), i)));
                 }
-                if (controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i) != -1) {
+                if (controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i) != -1 && !l.contains(labels.get(i))) {
                     lSprint.add(labels.get(controladorJogo.verificaSprint(labels.get(i).getY(), labels.get(i).getX(), i)));
                 }
             }
@@ -180,7 +180,14 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
     public void exibirTela() {
         setVisible(true);
         getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
-        getContentPane().setFont(PersonagensJogo.getInstance().getFonte());
+        getContentPane().setForeground(PersonagensJogo.getInstance().getCorFonte());
+        btnGirar.setBackground(PersonagensJogo.getInstance().getCorBotoes());
+        btnGirar.setForeground(PersonagensJogo.getInstance().getCorFonte());
+        btnMatar.setBackground(PersonagensJogo.getInstance().getCorBotoes());
+        btnMover.setBackground(PersonagensJogo.getInstance().getCorBotoes());
+        btnSobAtaque.setBackground(PersonagensJogo.getInstance().getCorBotoes());
+        btnSobMover.setBackground(PersonagensJogo.getInstance().getCorBotoes());
+        btnTurno.setBackground(PersonagensJogo.getInstance().getCorBotoes());
     }
 
     public void defineLabel() {
@@ -280,18 +287,18 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
+            .addGap(0, 512, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+            .addGap(0, 512, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +331,7 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -339,36 +346,33 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
                             .addComponent(comboPersonagens, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addGap(132, 132, 132)
                         .addComponent(btnTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(comboPersonagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGirar)
-                            .addComponent(btnMatar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnMover)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSobMover)
-                            .addComponent(btnSobAtaque))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnTurno)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(194, Short.MAX_VALUE))))
+                .addGap(40, 40, 40)
+                .addComponent(comboPersonagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGirar)
+                    .addComponent(btnMatar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMover)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSobMover)
+                    .addComponent(btnSobAtaque))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnTurno)
+                .addContainerGap(371, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();

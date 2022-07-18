@@ -44,7 +44,6 @@ public class JogoDisponivel extends JogoEstado {
                 }
             }
         } else {
-            c.notificaMensagem("O personagem selecionado não faz parte do turno");
             c.desabilitaBotoes();
             c.setPersonagemSelecionado(null);
         }

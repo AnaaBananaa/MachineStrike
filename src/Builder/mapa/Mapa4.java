@@ -7,8 +7,11 @@ package Builder.mapa;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.mapa.MapaAgua;
+import model.mapa.MapaGelo;
 import model.mapa.MapaGenerico;
 import model.mapa.MapaGrama;
+import model.mapa.MapaLava;
 
 /**
  *
@@ -25,9 +28,77 @@ public class Mapa4 extends BuilderMapa {
 
     @Override
     public void constroiMapa() {
-        for (int i = 0; i < 64; i++) {
-            mapa.add(new MapaGrama());
-        }
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaLava());
+        mapa.add(new MapaGrama());
+
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGelo());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaLava());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGelo());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGelo());
+        mapa.add(new MapaLava());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaLava());
+
+        mapa.add(new MapaLava());
+        mapa.add(new MapaLava());
+        mapa.add(new MapaLava());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGelo());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGelo());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGelo());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaLava());
+
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaLava());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaAgua());
+
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
     }
 
 }

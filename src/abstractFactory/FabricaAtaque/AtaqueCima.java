@@ -15,11 +15,7 @@ public class AtaqueCima implements Ataque {
 
     @Override
     public int ataque(Personagem p, int ataque) {
-        if (p.getJogador() == 2) {
-            return p.getVida() - (ataque - p.getCostas());
-        } else {
-            return p.getVida() - (ataque - p.getFrente());
-        }
+        return p.getVida() - (ataque - p.getFrente());
     }
 
 }

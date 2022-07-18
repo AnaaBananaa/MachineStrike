@@ -18,16 +18,16 @@ import model.mapa.MapaLava;
  */
 public class Mapa3 extends BuilderMapa {
 
-    private  List<MapaGenerico> mapa = new ArrayList<>();
-    
+    private List<MapaGenerico> mapa = new ArrayList<>();
+
     @Override
     public List<MapaGenerico> getMapa() {
         return mapa;
     }
-    
+
     @Override
     public void constroiMapa() {
-                mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
         mapa.add(new MapaGrama());
         mapa.add(new MapaGrama());
         mapa.add(new MapaGrama());
@@ -36,14 +36,14 @@ public class Mapa3 extends BuilderMapa {
         mapa.add(new MapaGrama());
         mapa.add(new MapaGrama());
 
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaAgua());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaGrama());
+        mapa.add(new MapaAgua());
         mapa.add(new MapaGrama());
         mapa.add(new MapaLava());
         mapa.add(new MapaGrama());
-        mapa.add(new MapaAgua());
-        mapa.add(new MapaGrama());
-        mapa.add(new MapaGrama());
-        mapa.add(new MapaAgua());
-        mapa.add(new MapaAgua());
 
         mapa.add(new MapaGrama());
         mapa.add(new MapaAgua());
@@ -99,5 +99,5 @@ public class Mapa3 extends BuilderMapa {
         mapa.add(new MapaGrama());
         mapa.add(new MapaGrama());
     }
-    
+
 }

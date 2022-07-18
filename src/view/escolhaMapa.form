@@ -178,17 +178,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="MAPA 3: Mapa com 2 terrenos."/>
+        <Property name="text" type="java.lang.String" value="MAPA 3: Mapa com 3 terrenos."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="MAPA 4: Mapa com 3 terrenos."/>
+        <Property name="text" type="java.lang.String" value="MAPA 4: Mapa com 4 terrenos."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="MAPA 5: Mapa com 4 terrenos."/>
+        <Property name="text" type="java.lang.String" value="MAPA 5: Mapa com 5 terrenos."/>
       </Properties>
     </Component>
   </SubComponents>

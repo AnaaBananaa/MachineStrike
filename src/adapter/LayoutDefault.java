@@ -14,10 +14,11 @@ import java.awt.Font;
  * @author Aners
  */
 public class LayoutDefault {
-    
-    public void salvaTema(Color corPadrao, Font fonte){
-        PersonagensJogo.getInstance().setFonte(fonte);
+
+    public void salvaTema(Color corPadrao, Color corFonte, Color corBotao) {
+        PersonagensJogo.getInstance().setCorFonte(corFonte);
+        PersonagensJogo.getInstance().setCorBotoes(corBotao);
         PersonagensJogo.getInstance().setCorFundo(corPadrao);
     }
-    
+
 }

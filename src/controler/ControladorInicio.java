@@ -10,10 +10,8 @@ import adapter.AdapterBackground;
 import adapter.AdapterDark;
 import adapter.AdapterDefault;
 import java.awt.Color;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.UIManager;
 
 /**
  *
@@ -29,17 +27,13 @@ public class ControladorInicio {
     }
     
     public void darkMode(boolean b){
-        Font font = null;
         if(b){
             AdapterBackground ab = new AdapterDark();
-            font = new Font("Verdana", Font.BOLD, 20);
-            ab.salvarLayout(new Color(104, 104, 104), font);
+            ab.salvarLayout(new Color(104, 104, 104), Color.WHITE, new Color(51, 51, 51));
         }else{
             AdapterBackground ab = new AdapterDefault();
-            font = new Font("Verdana", Font.BOLD, 10);
-            ab.salvarLayout(new Color(243, 243, 243), font);
+            ab.salvarLayout(new Color(245, 245, 237), Color.BLACK, new Color(207, 207, 200));
         }
-        UIManager.put("Button.font", font);
     }
     
     public void exibir(){
