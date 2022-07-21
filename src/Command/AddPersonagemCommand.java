@@ -5,7 +5,7 @@
  */
 package Command;
 
-import Singleton.PersonagensJogo;
+import Singleton.Jogo;
 import model.Personagem;
 
 /**
@@ -22,16 +22,16 @@ public class AddPersonagemCommand implements Command {
 
     @Override
     public void execute() {                
-        PersonagensJogo.getInstance().addPersonagem(dados);
+        Jogo.getInstance().addPersonagem(dados);
     }
 
     @Override
     public void undo() {
-        PersonagensJogo.getInstance().getPersonagens().remove(dados);
+        Jogo.getInstance().getPersonagens().remove(dados);
     }
 
     @Override
     public void redo() {
-        PersonagensJogo.getInstance().addPersonagem(dados);
+        Jogo.getInstance().addPersonagem(dados);
     }
 }

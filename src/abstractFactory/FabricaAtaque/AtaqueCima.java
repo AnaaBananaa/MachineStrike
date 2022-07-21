@@ -15,7 +15,7 @@ public class AtaqueCima implements Ataque {
 
     @Override
     public int ataque(Personagem p, int ataque) {
-        return p.getVida() - (ataque - p.getFrente());
+        return p.getVida() - (ataque - p.getCostas());
     }
 
 }

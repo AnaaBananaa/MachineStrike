@@ -5,11 +5,8 @@
  */
 package view;
 
-import Singleton.PersonagensJogo;
-import java.awt.Color;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 import model.Personagem;
 
 /**
@@ -18,57 +15,16 @@ import model.Personagem;
  */
 public class InfoPersonagem extends javax.swing.JFrame {
 
-    private JLabel l = new JLabel();
-    private JLabel lClasse = new JLabel();
-    private JLabel lVida = new JLabel();
-    private JLabel lAtaque = new JLabel();
-    private JLabel lPV = new JLabel();
-    private JLabel lPontos = new JLabel();
-    private JLabel lMovimento = new JLabel();
-
     public InfoPersonagem() {
         initComponents();
-        jPanel1.add(l);
-        jPanel1.add(lClasse);
-        jPanel1.add(lVida);
-        jPanel1.add(lAtaque);
-        jPanel1.add(lPV);
-        jPanel1.add(lMovimento);
-        jPanel1.add(lPontos);
     }
 
     public void exibirTela(Personagem p) {
         setVisible(true);
-        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
-        getContentPane().setForeground(PersonagensJogo.getInstance().getCorFonte());
-        l.setIcon(new ImageIcon(new ImageIcon(p.getFotoPersonagem()).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
-        l.setBounds(50, 30, 64, 64);
-        lClasse.setText(p.nomeClasse());
-        lClasse.setBounds(50, 10, 100, 20);
-        lVida.setText("Vida: " + p.getVida());
-        lVida.setBounds(20, 100, 100, 20);
-        lAtaque.setText("Ataque: " + p.getForcaAtaque());
-        lAtaque.setBounds(20, 120, 100, 20);
-        lPV.setText("Pontos de Vitória: " + p.getCustoVP());
-        lPV.setBounds(20, 140, 130, 20);
-        lMovimento.setText("Movimentação: " + p.getMovimentacao());
-        lMovimento.setBounds(20, 160, 130, 20);
-        lPontos.setText("Frente: " + p.getFrente() + " Costas: " + p.getCostas() + " Lados: " + p.getEsquerda());
-        lPontos.setBounds(20, 180, 200, 20);
-    }
-
-    public void desenhaTodos() {
-//        int xAux = 0;
-//        int yAux = 0;
-//        int aux = 0;
-//        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
-//            labels.add(new JLabel());
-//            labels.get(aux).setIcon(new ImageIcon(new ImageIcon(p.getFotoPersonagem()).getImage().getScaledInstance(64, 64, Image.SCALE_DEFAULT)));
-//            labels.get(aux).setBounds(xAux, yAux, 64, 64);
-//            jPanel1.add(labels.get(aux));
-//            aux += 1;
-//            xAux += 1;
-//        }
+        JPanel panel = p.getDados();
+        panel.setLayout(new BorderLayout());
+        panel.setSize(212, 200);
+        jPanel1.add(panel);
     }
 
     /**
@@ -90,18 +46,18 @@ public class InfoPersonagem extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
+            .addGap(0, 229, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

@@ -6,7 +6,7 @@
 package Command;
 
 import Builder.mapa.BuilderMapa;
-import Singleton.PersonagensJogo;
+import Singleton.Jogo;
 import java.util.List;
 import model.mapa.MapaGenerico;
 
@@ -24,7 +24,7 @@ public class AddMapaCommand implements Command {
 
     @Override
     public void execute() {
-        PersonagensJogo.getInstance().addMapa(dados);
+        Jogo.getInstance().addMapa(dados);
     }
 
     @Override

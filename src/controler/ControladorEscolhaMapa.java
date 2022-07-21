@@ -10,7 +10,7 @@ import Builder.mapa.GeradorMapa;
 import Command.AddMapaCommand;
 import Command.CommandInvoker;
 import Observer.ObservadorEscolhaMapa;
-import Singleton.PersonagensJogo;
+import Singleton.Jogo;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class ControladorEscolhaMapa {
     }
 
     public void verificaTela() {
-        if (!PersonagensJogo.getInstance().getMapa().isEmpty()) {
+        if (!Jogo.getInstance().getMapa().isEmpty()) {
             abreTela();
         } else {
             atualizaMensagem("Selecione um mapa antes de seguir");

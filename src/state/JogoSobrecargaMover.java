@@ -23,6 +23,7 @@ public class JogoSobrecargaMover extends JogoEstado {
             c.notificaMensagem("O personagem selecionado não faz parte do turno");
             c.desabilitaBotoes();
             c.setPersonagemSelecionado(null);
+            c.limpaTela();
             proxEstado();
         }
     }
@@ -53,6 +54,7 @@ public class JogoSobrecargaMover extends JogoEstado {
             c.desabilitaBotoes();
             c.setPersonagemSelecionado(null);
         }
+        c.limpaTela();
         proxEstado();
     }
 

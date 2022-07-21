@@ -6,8 +6,6 @@
 package state;
 
 import controler.ControladorJogo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -31,7 +29,7 @@ public class JogoRotacionando extends JogoEstado {
         c.getPersonagemSelecionado().rotacionar();
         c.atualizaImagem(c.getPersonagemSelecionado());
         c.desabilitaBotoes();
-
+        
         proxEstado();
     }
 }

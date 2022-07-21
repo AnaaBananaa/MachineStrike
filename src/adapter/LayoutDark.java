@@ -5,7 +5,7 @@
  */
 package adapter;
 
-import Singleton.PersonagensJogo;
+import Singleton.Jogo;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -45,10 +45,11 @@ public class LayoutDark {
 
     public void atribuiCor() {
         if (corFundo.getBlue() > 150) {
-            PersonagensJogo.getInstance().setCorFonte(Color.BLACK);
+            Jogo.getInstance().setCorFonte(Color.BLACK);
         }
-        PersonagensJogo.getInstance().setCorFundo(corFundo);
-        PersonagensJogo.getInstance().setCorBotoes(corBotao);
+        Jogo.getInstance().setCorFundo(corFundo);
+        Jogo.getInstance().setCorBotoes(corBotao);
+        Jogo.getInstance().setCorFonte(corFonte);
     }
 
 }

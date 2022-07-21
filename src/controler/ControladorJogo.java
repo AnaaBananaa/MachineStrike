@@ -6,7 +6,7 @@
 package controler;
 
 import Observer.ObservadorMapaJogo;
-import Singleton.PersonagensJogo;
+import Singleton.Jogo;
 import abstractFactory.FabricaAtaque.Ataque;
 import abstractFactory.FabricaAtaque.FabricaAtaque;
 import abstractFactory.FabricaAtaque.FabricaAtaqueBaixo;
@@ -24,6 +24,7 @@ import state.JogoDisponivel;
 import state.JogoEstado;
 import visitor.CalculaGanhador;
 import visitor.CalculaPersonagens;
+import visitor.CalculaQtdPersonagem;
 
 /**
  *
@@ -156,7 +157,7 @@ public class ControladorJogo {
                         ataqueFabrica = fb.atacarPersonagem();
                         pAtact.setVida(ataqueFabrica.ataque(pAtact, ataque));
                         boolean temPersonagem = false;
-                        for (Personagem ps : PersonagensJogo.getInstance().getPersonagens()) {
+                        for (Personagem ps : Jogo.getInstance().getPersonagens()) {
                             if ((ps.getX() == p.getX()) && (ps.getY() == p.getY())) {
                                 temPersonagem = true;
                             }
@@ -164,10 +165,13 @@ public class ControladorJogo {
                         if (!temPersonagem) {
                             movePersonagem(pAtact, p.getX(), p.getY());
                         }
-                        notificaMensagem("O personagem " + p.getNome() + " foi atacado! Sua vida atual é: " + p.getVida());
+                        notificaMensagem("O personagem " + pAtact.getNome() + " foi atacado! Sua vida atual é: " + pAtact.getVida());
                         validaGanhador();
                         setJogadas(getJogadas() + 1);
                         personagemSelecionado.setPermiteAtacar(false);
+                        setJogadas(2);
+                        setMoveu(false);
+                        setAtacou(false);
                         if (isHabilitaBotaoSobrecargaAtacar()) {
                             personagemSelecionado.setVida(personagemSelecionado.getVida() - 2);
                             notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
@@ -256,40 +260,31 @@ public class ControladorJogo {
 
     public void acao(int x, int y) {
         if (personagemSelecionado != null) {
-            if (isTurnoJogador() == personagemSelecionado.getJogador()) {
-                this.estado.acao(x, y);
-            }
+            this.estado.acao(x, y);
         } else {
             this.estado.acao(x, y);
         }
     }
 
     public void validaGanhador() throws Exception {
-        PersonagensJogo.getInstance().setMortos(new ArrayList<>());
+        Jogo.getInstance().setMortos(new ArrayList<>());
         List<Personagem> pMortos = new ArrayList<>();
-        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+        for (Personagem p : Jogo.getInstance().getPersonagens()) {
             if (p.getVida() <= 0) {
-                PersonagensJogo.getInstance().addMortos(p.clonar());
+                Jogo.getInstance().addMortos(p.clonar());
                 limpaMortos(p.getX() * 64, p.getY() * 64);
                 pMortos.add(p);
             }
         }
-        PersonagensJogo.getInstance().getPersonagens().removeAll(pMortos);
+        Jogo.getInstance().getPersonagens().removeAll(pMortos);
         CalculaGanhador ganhador = new CalculaGanhador();
-        CalculaPersonagens todosP = new CalculaPersonagens();
-        PersonagensJogo.getInstance().accept(todosP);
-        PersonagensJogo.getInstance().acceptTodos(todosP);
-        PersonagensJogo.getInstance().accept(ganhador);
-        if (todosP.menosPersonagens()) {
-            int aux = 0;
-            for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
-                if (p.getJogador() == 1) {
-                    aux += 1;
-                }
-            }
-            if (aux == PersonagensJogo.getInstance().getPersonagens().size()) {
+        CalculaQtdPersonagem cp = new CalculaQtdPersonagem();
+        Jogo.getInstance().accept(ganhador);
+        Jogo.getInstance().acceptVivos(cp);
+        if (Jogo.getInstance().isMenosPersonagens()) {
+            if (cp.getIogadores1() >= 1 && cp.getJogadores2() == 0) {
                 notificaMensagem("O jogador 1 ganhou o jogo!");
-            } else if (aux == 0) {
+            } else if (cp.getJogadores2() >= 1 && cp.getIogadores1() == 0) {
                 notificaMensagem("O jogador 2 ganhou o jogo!");
             }
         } else {
@@ -301,6 +296,13 @@ public class ControladorJogo {
                 desabilitaBotoes();
             }
         }
+        atualizaPontos(ganhador.pontosGanhador1(), ganhador.pontosGanhador2());
+    }
+
+    public void atualizaPontos(int j1, int j2) {
+        obss.forEach(obs -> {
+            obs.atualizaPontos(j1, j2);
+        });
     }
 
     public List<Personagem> getPersonagens() {
@@ -376,11 +378,11 @@ public class ControladorJogo {
     }
 
     public List<MapaGenerico> getMapa() {
-        return PersonagensJogo.getInstance().getMapa();
+        return Jogo.getInstance().getMapa();
     }
 
     public List<Personagem> getPersonagem() {
-        return PersonagensJogo.getInstance().getPersonagens();
+        return Jogo.getInstance().getPersonagens();
     }
 
     public int isTurnoJogador() {
@@ -400,7 +402,7 @@ public class ControladorJogo {
         List<Integer> posicoesDiagonalX = new ArrayList<>();
         List<Integer> posicoesDiagonalY = new ArrayList<>();
         int[][] matrizDiagonal = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
-        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+        for (Personagem p : Jogo.getInstance().getPersonagens()) {
             if (p != personagemSelecionado) {
                 if (p.getY() == personagemSelecionado.getY()) {
                     if (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao()) {
@@ -516,7 +518,7 @@ public class ControladorJogo {
         List<Integer> posicoesDiagonalX = new ArrayList<>();
         List<Integer> posicoesDiagonalY = new ArrayList<>();
         int[][] matrizDiagonal = {{0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0, 0, 0}};
-        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+        for (Personagem p : Jogo.getInstance().getPersonagens()) {
             if (p != personagemSelecionado) {
                 if (p.getY() == personagemSelecionado.getY()) {
                     if (p.getX() >= personagemSelecionado.getX() && p.getX() <= personagemSelecionado.getX() + personagemSelecionado.getMovimentacao()) {
@@ -650,7 +652,7 @@ public class ControladorJogo {
         } else {
             setTurnoJogador(1);
         }
-        for (Personagem p : PersonagensJogo.getInstance().getPersonagens()) {
+        for (Personagem p : Jogo.getInstance().getPersonagens()) {
             p.setPermiteAtacar(true);
             p.setPermiteMover(true);
         }

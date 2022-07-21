@@ -11,7 +11,7 @@ import Builder.mapa.Mapa3;
 import Builder.mapa.Mapa4;
 import Builder.mapa.Mapa5;
 import Observer.ObservadorEscolhaMapa;
-import Singleton.PersonagensJogo;
+import Singleton.Jogo;
 import controler.ControladorEscolhaMapa;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -300,7 +300,7 @@ public class escolhaMapa extends javax.swing.JFrame implements ObservadorEscolha
 
     public void exibirTela() {
         setVisible(true);
-        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
+        getContentPane().setBackground(Jogo.getInstance().getCorFundo());
     }
 
     @Override

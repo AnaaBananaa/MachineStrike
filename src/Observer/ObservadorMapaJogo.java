@@ -23,4 +23,6 @@ public interface ObservadorMapaJogo {
     void selecionaLimitesAtaque();
     void limpaTela();
     void limpaMorto(int x, int y);
+    void exibePersonagens();
+    void atualizaPontos(int j1, int j2);
 }

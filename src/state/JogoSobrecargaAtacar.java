@@ -33,6 +33,7 @@ public class JogoSobrecargaAtacar extends JogoEstado {
             Personagem pAtact = c.getPeca(x, y);
             c.setHabilitaBotaoSobrecargaAtacar(true);
             c.atacaPersonagem(pAtact, x, y);
+            c.limpaTela();
             proxEstado();
         } catch (Exception ex) {
             Logger.getLogger(JogoSobrecargaAtacar.class.getName()).log(Level.SEVERE, null, ex);

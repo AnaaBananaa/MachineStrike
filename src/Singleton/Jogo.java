@@ -16,19 +16,20 @@ import visitor.VisitorPersonagem;
  *
  * @author Aners
  */
-public class PersonagensJogo {
+public class Jogo {
 
-    private static PersonagensJogo instance;
+    private static Jogo instance;
     private List<Personagem> personagens = new ArrayList<>();
     private List<Personagem> mortos = new ArrayList<>();
     private List<MapaGenerico> mapa = new ArrayList<>();
     private Color corFundo;
     private Color corFonte;
     private Color corBotoes;
+    private boolean menosPersonagens;
 
-    public synchronized static PersonagensJogo getInstance() {
+    public synchronized static Jogo getInstance() {
         if (instance == null) {
-            instance = new PersonagensJogo();
+            instance = new Jogo();
         }
 
         return instance;
@@ -72,7 +73,7 @@ public class PersonagensJogo {
         }
     }
 
-    public void acceptTodos(VisitorPersonagem visitor) {
+    public void acceptVivos(VisitorPersonagem visitor) {
         for (Personagem item : getPersonagens()) {
             item.accept(visitor);
         }
@@ -104,6 +105,14 @@ public class PersonagensJogo {
 
     public void setCorBotoes(Color corBotoes) {
         this.corBotoes = corBotoes;
+    }
+
+    public boolean isMenosPersonagens() {
+        return menosPersonagens;
+    }
+
+    public void setMenosPersonagens(boolean menosPersonagens) {
+        this.menosPersonagens = menosPersonagens;
     }
     
 }

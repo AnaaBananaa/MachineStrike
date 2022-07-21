@@ -6,7 +6,7 @@
 package view;
 
 import Observer.ObservadorEscolhaPersonagem;
-import Singleton.PersonagensJogo;
+import Singleton.Jogo;
 import controler.ControladorEscolhaPersonagem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -298,7 +298,7 @@ public class escolhaPersonagem extends javax.swing.JFrame implements ObservadorE
     @Override
     public void exibirTela() {
         setVisible(true);
-        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
+        getContentPane().setBackground(Jogo.getInstance().getCorFundo());
     }
 
     @Override

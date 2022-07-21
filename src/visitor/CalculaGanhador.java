@@ -39,5 +39,13 @@ public class CalculaGanhador implements VisitorPersonagem {
             return 0;
         }
     }
+    
+    public int pontosGanhador1(){
+        return jogador1;
+    }
+    
+    public int pontosGanhador2(){
+        return jogador2;
+    }
 
 }

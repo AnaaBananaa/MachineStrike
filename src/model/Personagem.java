@@ -6,7 +6,10 @@
 package model;
 
 import abstractFactory.FabricaAtaque.FabricaAtaque;
+import composite.PersonagemJogo;
+import draw.DesenhaInfoPersonagem;
 import java.awt.Image;
+import javax.swing.JPanel;
 import state.Personagem.PersonagemEstado;
 import state.Personagem.PersonagemRotacionaCostas;
 import state.Personagem.PersonagemRotacionaFrente;
@@ -16,7 +19,7 @@ import visitor.VisitorPersonagem;
  *
  * @author Aners
  */
-public abstract class Personagem implements Cloneable {
+public abstract class Personagem extends PersonagemJogo implements Cloneable {
 
     /* Atributos de movimentacao */
     private int x;
@@ -69,12 +72,14 @@ public abstract class Personagem implements Cloneable {
     }
     public abstract Personagem ataqueDaClasse(Personagem pAtact, int posicao);
     public abstract String getCaminhoImagem();
+    @Override
     public abstract String nomeClasse();
 
     public void rotacionar() {
         this.estado.rotacionar();
     }
 
+    @Override
     public int getX() {
         return x;
     }
@@ -83,6 +88,7 @@ public abstract class Personagem implements Cloneable {
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
@@ -91,6 +97,7 @@ public abstract class Personagem implements Cloneable {
         this.y = y;
     }
 
+    @Override
     public int getForcaAtaque() {
         return forcaAtaque;
     }
@@ -99,6 +106,7 @@ public abstract class Personagem implements Cloneable {
         this.forcaAtaque = forca;
     }
 
+    @Override
     public int getVida() {
         return vida;
     }
@@ -115,6 +123,7 @@ public abstract class Personagem implements Cloneable {
         this.alcance = alcance;
     }
 
+    @Override
     public int getMovimentacao() {
         return movimentacao;
     }
@@ -123,6 +132,7 @@ public abstract class Personagem implements Cloneable {
         this.movimentacao = movimentacao;
     }
 
+    @Override
     public int getFrente() {
         return frente;
     }
@@ -131,6 +141,7 @@ public abstract class Personagem implements Cloneable {
         this.frente = frente;
     }
 
+    @Override
     public int getCostas() {
         return costas;
     }
@@ -139,6 +150,7 @@ public abstract class Personagem implements Cloneable {
         this.costas = costas;
     }
 
+    @Override
     public int getEsquerda() {
         return esquerda;
     }
@@ -163,6 +175,7 @@ public abstract class Personagem implements Cloneable {
         this.jogador = jogador;
     }
 
+    @Override
     public int getCustoVP() {
         return custoVP;
     }
@@ -179,6 +192,7 @@ public abstract class Personagem implements Cloneable {
         this.nome = nome;
     }
 
+    @Override
     public Image getFotoPersonagem() {
         return fotoPersonagem;
     }
@@ -226,6 +240,12 @@ public abstract class Personagem implements Cloneable {
 
     public void setFabrica(FabricaAtaque fabrica) {
         this.fabrica = fabrica;
+    }
+
+    @Override
+    public JPanel getDados(){
+        DesenhaInfoPersonagem info = new DesenhaInfoPersonagem();
+        return info.populaDadosPersonagem(this);
     }
 
     public void accept(VisitorPersonagem visitor) {

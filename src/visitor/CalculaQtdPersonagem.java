@@ -11,25 +11,26 @@ import model.Personagem;
  *
  * @author Aners
  */
-public class CalculaPersonagens implements VisitorPersonagem {
+public class CalculaQtdPersonagem implements VisitorPersonagem {
 
-    private int custoPV, custoPV2;
-
+    private int aux = 0;
+    private int aux2 = 0;
+    
     @Override
     public void visit(Personagem p) {
         if (p.getJogador() == 1) {
-            custoPV += p.getCustoVP();
+            aux += 1;
         }else{
-            custoPV2 += p.getCustoVP();
+            aux2 += 1;
         }
     }
 
-    public boolean menosPersonagens() {
-        if (custoPV < 7 && custoPV2 < 7) {
-            return true;
-        } else {
-            return false;
-        }
+    public int getIogadores1() {
+        return aux;
     }
 
+    public int getJogadores2() {
+        return aux2;
+    }
+    
 }

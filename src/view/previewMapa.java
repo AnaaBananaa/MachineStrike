@@ -6,8 +6,8 @@
 package view;
 
 import Builder.mapa.BuilderMapa;
-import Singleton.PersonagensJogo;
-import Singleton.Preview;
+import Singleton.Jogo;
+import draw.Preview;
 
 /**
  *
@@ -24,7 +24,7 @@ public class previewMapa extends javax.swing.JFrame {
 
     public void exibirTela(BuilderMapa mapa) {
         setVisible(true);
-        getContentPane().setBackground(PersonagensJogo.getInstance().getCorFundo());
+        getContentPane().setBackground(Jogo.getInstance().getCorFundo());
         ((Preview) jPanel1).desenhaPreviewMapa(mapa);
     }
 

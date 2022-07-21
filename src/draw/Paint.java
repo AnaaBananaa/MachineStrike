@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Singleton;
+package draw;
 
+import Singleton.Jogo;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.JPanel;
@@ -19,7 +20,7 @@ public class Paint extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        List<MapaGenerico> mapaJogo = PersonagensJogo.getInstance().getMapa();
+        List<MapaGenerico> mapaJogo = Jogo.getInstance().getMapa();
         int aux = 0;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
