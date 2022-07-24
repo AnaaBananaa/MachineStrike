@@ -231,7 +231,7 @@ public abstract class Personagem extends PersonagemJogo implements Cloneable {
 
     @Override
     public String toString() {
-        return nome + "Player " + jogador + "\n";
+        return "O personagem "+ nome + " foi adicionado aos personagens do jogador " + jogador + "\n";
     }
 
     public FabricaAtaque getFabrica() {

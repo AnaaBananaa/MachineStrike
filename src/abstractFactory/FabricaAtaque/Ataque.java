@@ -5,6 +5,7 @@
  */
 package abstractFactory.FabricaAtaque;
 
+import java.util.List;
 import model.Personagem;
 
 /**
@@ -12,5 +13,5 @@ import model.Personagem;
  * @author Aners
  */
 public interface Ataque {
-    int ataque(Personagem p, int ataque);
+    void ataque(Personagem p, int ataque, Personagem pSelecionado);
 }

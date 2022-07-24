@@ -23,7 +23,6 @@ import state.JogoAtacando;
 import state.JogoDisponivel;
 import state.JogoEstado;
 import visitor.CalculaGanhador;
-import visitor.CalculaPersonagens;
 import visitor.CalculaQtdPersonagem;
 
 /**
@@ -130,7 +129,7 @@ public class ControladorJogo {
                     personagemSelecionado.setPermiteAtacar(true);
                 } else {
                     try {
-                        if ((personagemSelecionado.getX() < pAtact.getX()) && (personagemSelecionado.getAlcance() <= pAtact.getX() - personagemSelecionado.getX())) {
+                        if ((personagemSelecionado.getX() < pAtact.getX()) && (personagemSelecionado.getAlcance() >= pAtact.getX() - personagemSelecionado.getX())) {
                             p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 1);
                             fb = new FabricaAtaqueEsquerda();
 
@@ -138,7 +137,7 @@ public class ControladorJogo {
                             p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 2);
                             fb = new FabricaAtaqueDireita();
 
-                        } else if ((personagemSelecionado.getY() < pAtact.getY()) && (personagemSelecionado.getAlcance() <= pAtact.getY() - personagemSelecionado.getY())) {
+                        } else if ((personagemSelecionado.getY() < pAtact.getY()) && (personagemSelecionado.getAlcance() >= pAtact.getY() - personagemSelecionado.getY())) {
                             p = personagemSelecionado.ataqueDaClasse(pAtact.clonar(), 3);
                             fb = new FabricaAtaqueCima();
 
@@ -155,7 +154,7 @@ public class ControladorJogo {
                         Ataque ataqueFabrica;
                         int ataque = personagemSelecionado.getForcaAtaque() + danoAtaqueMapa;
                         ataqueFabrica = fb.atacarPersonagem();
-                        pAtact.setVida(ataqueFabrica.ataque(pAtact, ataque));
+                        ataqueFabrica.ataque(pAtact, ataque, personagemSelecionado);
                         boolean temPersonagem = false;
                         for (Personagem ps : Jogo.getInstance().getPersonagens()) {
                             if ((ps.getX() == p.getX()) && (ps.getY() == p.getY())) {
@@ -167,7 +166,7 @@ public class ControladorJogo {
                         }
                         notificaMensagem("O personagem " + pAtact.getNome() + " foi atacado! Sua vida atual é: " + pAtact.getVida());
                         validaGanhador();
-                        setJogadas(getJogadas() + 1);
+                        setJogadas(getJogadas() + 3);
                         personagemSelecionado.setPermiteAtacar(false);
                         setJogadas(2);
                         setMoveu(false);

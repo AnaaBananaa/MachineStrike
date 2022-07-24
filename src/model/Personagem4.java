@@ -12,9 +12,9 @@ package model;
 public class Personagem4 extends PersonagemCorpoCorpo{
     
     public Personagem4(int jogador) {
-        super(jogador, 1, 2, 2, 4, 1, -1, 0, 2, 1, "Personagem 4", 100, 100);
+        super(jogador, 1, 2, 2, 4, 1, -1, 0, 0, 1, "Spikesnout", 100, 100);
     }
-    
+
     @Override
     public String getCaminhoImagem() {
         return "src\\images\\p4\\p4";

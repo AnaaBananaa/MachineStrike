@@ -5,6 +5,8 @@
  */
 package abstractFactory.FabricaAtaque;
 
+import java.util.ArrayList;
+import java.util.List;
 import model.Personagem;
 
 /**
@@ -14,8 +16,13 @@ import model.Personagem;
 public class AtaqueBaixo implements Ataque {
 
     @Override
-    public int ataque(Personagem p, int ataque) {
-        return p.getVida() - (ataque - p.getFrente());
+    public void ataque(Personagem p, int ataque, Personagem pSelecionado) {
+        if (ataque - p.getFrente() <= 0) {
+            pSelecionado.setVida(pSelecionado.getVida() - 1);
+            p.setVida(p.getVida() - 1);
+        } else {
+            p.setVida(p.getVida() - (ataque - p.getFrente()));
+        }
     }
 
 }

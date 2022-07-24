@@ -17,15 +17,7 @@ public class JogoSobrecargaMover extends JogoEstado {
 
     public JogoSobrecargaMover(ControladorJogo c) {
         this.c = c;
-        if (c.isTurnoJogador() == c.getPersonagemSelecionado().getJogador()) {
-            this.c.notificaMensagem("Escolha uma posição para mover o personagem selecionado");
-        } else {
-            c.notificaMensagem("O personagem selecionado não faz parte do turno");
-            c.desabilitaBotoes();
-            c.setPersonagemSelecionado(null);
-            c.limpaTela();
-            proxEstado();
-        }
+        this.c.notificaMensagem("Escolha uma posição para mover o personagem selecionado");
     }
 
     @Override
@@ -41,13 +33,23 @@ public class JogoSobrecargaMover extends JogoEstado {
             if (c.verificaLimites(yAux * 64, xAux * 64, 3) == 3) {
                 c.getPersonagemSelecionado().setPermiteMover(false);
                 c.movePersonagem(c.getPersonagemSelecionado(), xAux, yAux);
-                this.c.notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
-                c.setJogadas(c.getJogadas() + 1);
+                c.setJogadas(c.getJogadas() + 3);
+                c.notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
+                c.getPersonagemSelecionado().setVida(c.getPersonagemSelecionado().getVida() - 2);
+                c.setMoveu(false);
             } else {
-                c.notificaMensagem("O campo escolhido está fora dos limites do personagem");
+                if (c.verificaSprint(yAux * 64, xAux * 64, 3) == 3) {
+                    c.movePersonagem(c.getPersonagemSelecionado(), xAux, yAux);
+                    c.setJogadas(2);
+                    c.setMoveu(false);
+                    c.setAtacou(false);
+                    c.getPersonagemSelecionado().setVida(c.getPersonagemSelecionado().getVida() - 2);
+                    c.notificaMensagem("Seu personagem perdeu 2 pontos de vida por conta da sobrecarga");
+                } else {
+                    c.notificaMensagem("O campo escolhido está fora dos limites do personagem");
+                    c.setPersonagemSelecionado(null);
+                }
                 c.desabilitaBotoes();
-                c.setPersonagemSelecionado(null);
-                c.limpaTela();
             }
         } else {
             c.notificaMensagem("Já existe um personagem nesta posição");

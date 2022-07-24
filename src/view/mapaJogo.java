@@ -106,6 +106,7 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         btnSobAtaque.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                controladorJogo.setPersonagemSelecionado(pAux);
                 controladorJogo.escolhePersonagem(4);
                 selecionaLimitesAtaque();
             }
@@ -113,6 +114,7 @@ public class mapaJogo extends javax.swing.JFrame implements Observer.ObservadorM
         btnSobMover.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                controladorJogo.setPersonagemSelecionado(pAux);
                 controladorJogo.escolhePersonagem(5);
                 selecionaLimites();
             }
